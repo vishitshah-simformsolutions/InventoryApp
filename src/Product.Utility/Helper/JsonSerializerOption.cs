@@ -20,7 +20,7 @@ namespace Product.Utility.Helper
             CamelCasePolicyWithEnumAndDateTimeConverter = new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                Converters = { new JsonStringEnumConverter(), new SbsDateTimeConverter() }
+                Converters = { new JsonStringEnumConverter(), new DateTimeConverter() }
             };
         }
     }

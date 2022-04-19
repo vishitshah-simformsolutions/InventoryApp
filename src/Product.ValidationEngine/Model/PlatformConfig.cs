@@ -5,8 +5,7 @@ namespace Product.ValidationEngine.Model
     public class PlatformConfig
     {
         public string PlatformCode { get; set; }
-        public List<RuleType> AuctionRuleGroup { get; set; }
-        public List<RuleType> LotRuleGroup { get; set; }
+        public List<RuleType> ProductRuleGroup { get; set; }
     }
 
     public class RuleType

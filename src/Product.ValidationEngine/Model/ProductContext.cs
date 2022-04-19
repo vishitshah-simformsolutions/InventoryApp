@@ -35,9 +35,9 @@ namespace Product.ValidationEngine.Model
         }
 
         /// <summary>
-        /// Accepts json string for Lot Detail class, validates it and assigns it to the LotDetail property of this static class
+        /// Accepts json string for Lot Detail class, validates it and assigns it to the ProductDetail property of this static class
         /// </summary>
-        /// <param name="lotDetailJson">Json request for LotDetail</param>
+        /// <param name="lotDetailJson">Json request for ProductDetail</param>
         /// <param name="validateAuctionDetail">Boolean flag for auction detail call</param>
         /// <param name="requestPipe"></param>
         /// <param name="rules"></param>
@@ -57,7 +57,7 @@ namespace Product.ValidationEngine.Model
             ValidateAllMandatoryData(lotDetailJson, validateAuctionDetail);
             Config = new Config(platformCode);
 
-            LotDetail = new LotDetailRequest(LotDetailRequestDictionary, validateAuctionDetail);
+            LotDetail = new ProductDetailRequest(LotDetailRequestDictionary, validateAuctionDetail);
             ValidateAuctionDetail = validateAuctionDetail;
         }
         #endregion
@@ -94,7 +94,7 @@ namespace Product.ValidationEngine.Model
             _ruleValidationMessage = new RuleValidationMessage { IsValid = true };
             _validationLogs = new List<ValidationResult>();
 
-            var ruleGroup = ValidateAuctionDetail ? Config.AuctionRuleGroup : Config.LotRuleGroup;
+            var ruleGroup = Config.ProductRuleGroup;
 
             foreach (var rulePair in ruleGroup)
             {

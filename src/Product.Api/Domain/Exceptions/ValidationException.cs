@@ -16,10 +16,5 @@ namespace Product.Api.Domain.Exceptions
         {
         }
 
-        public ValidationException(IEnumerable<ValidationResult> errors, string message = nameof(ValidationException)) :
-            this(message)
-        {
-            Errors = errors?.ToArray();
-        }
     }
 }

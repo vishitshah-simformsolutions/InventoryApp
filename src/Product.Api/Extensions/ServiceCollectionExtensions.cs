@@ -13,6 +13,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 using System.IO.Compression;
+using Product.ValidationEngine.Rules;
+using System.Linq;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using System;
+using static Microsoft.Extensions.DependencyInjection.ServiceDescriptor;
 
 namespace Product.Api.Extensions
 {
@@ -53,10 +58,13 @@ namespace Product.Api.Extensions
             services.RegisterGzipCompressorDeCompressor();
 
             services.AddSingleton<ILotDataAccess, CosmosDataAccess>();
-            services.AddScoped<IAuctioneerService, AuctioneerService>();
-
-            //Used for SBS Egress
+            services.AddScoped<IProductService, ProductService>();
+            
             services.AddSingleton<ICorrelationIdProvider, CorrelationIdProvider>();
+            var ruleInstances = typeof(IRule).Assembly.GetTypes()
+                .Where(t => typeof(IRule).IsAssignableFrom(t) && t.IsClass)
+                .Select(t => Activator.CreateInstance(t) as IRule);
+            services.TryAddEnumerable(ruleInstances.Select(Singleton<IRule>));
         }
 
         /// <summary>

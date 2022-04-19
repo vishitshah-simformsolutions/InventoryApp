@@ -142,8 +142,8 @@ namespace Product.DAL.Cosmos
         {
             var document = new CosmosLotDocument
             {
-                id = lotModel.LotDetail.LotId.ToString(),
-                PartitionKey = string.Concat(lotModel.LotDetail.AuctionId, "-", lotModel.LotDetail.LotId),
+                id = lotModel.ProductDetail.ItemId.ToString(),
+                PartitionKey = string.Concat(lotModel.ProductDetail.ProductId, "-", lotModel.ProductDetail.ItemId),
                 EncodedLotModel = await _compressHelper.Compress(JsonSerializer.Serialize(lotModel, JsonSerializerOption.CamelCasePolicyWithEnumAndDateTimeConverter))
             };
 
@@ -159,8 +159,8 @@ namespace Product.DAL.Cosmos
                     var validationResult = new List<ValidationResult> { Response.PrepareValidationResult(164) };
                     Dictionary<string, object> dictionarySuggestion = new Dictionary<string, object>
                     {
-                        {"auctionId",lotModel.LotDetail.AuctionId},
-                        {"lotId",lotModel.LotDetail.LotId},
+                        {"auctionId",lotModel.ProductDetail.ProductId},
+                        {"lotId",lotModel.ProductDetail.ItemId},
                     };
                     validationResult[0].Data = dictionarySuggestion;
                     throw new RuleEngineException(new RuleValidationMessage { IsValid = false, ValidationResults = validationResult }, ex);
@@ -294,12 +294,12 @@ namespace Product.DAL.Cosmos
         /// <returns></returns>
         public async Task<string> UpsertAsync(ProductModel lotModel, CancellationToken cancellationToken, bool isRetraction = false, string documentId = "")
         {
-            string id = isRetraction ? documentId : lotModel.LotDetail.LotId.ToString();
+            string id = isRetraction ? documentId : lotModel.ProductDetail.ItemId.ToString();
 
             var document = new CosmosLotDocument
             {
                 id = id,
-                PartitionKey = $"{lotModel.LotDetail.AuctionId}-{lotModel.LotDetail.LotId}",
+                PartitionKey = $"{lotModel.ProductDetail.ProductId}-{lotModel.ProductDetail.ItemId}",
                 EncodedLotModel = await _compressHelper.Compress(JsonSerializer.Serialize(lotModel, JsonSerializerOption.CamelCasePolicyWithEnumAndDateTimeConverter))
             };
 

@@ -5,6 +5,6 @@ namespace Product.ValidationEngine.Rules
 {
     public interface IRule
     {
-        RuleValidationMessage Execute(ProductContext auctioneerContext);
+        RuleValidationMessage Execute(ProductContext productContext);
     }
 }

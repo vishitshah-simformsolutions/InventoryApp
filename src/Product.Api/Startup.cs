@@ -27,7 +27,7 @@ namespace Product.Api
             services.RegisterRuleValidationEngine();
             services.AddApiVersioning(1);
 
-            services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.Converters.Add(new SbsDateTimeConverter()));
+            services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.Converters.Add(new DateTimeConverter()));
             services.AddHeaderPropagation();
 
             services.AddSwaggerGen(swaggerOptions =>

@@ -5,6 +5,6 @@ namespace Product.ValidationEngine.Rules
 {
     public interface ITransform
     {
-        RuleValidationMessage Transform(ProductContext auctioneerContext);
+        RuleValidationMessage Transform(ProductContext productContext);
     }
 }

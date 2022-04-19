@@ -65,7 +65,7 @@ namespace Product.Api.Application.Middleware
         {
             var jsonSerializerOptions = new JsonSerializerOptions
             {
-                Converters = { new SbsDateTimeConverter() },
+                Converters = { new DateTimeConverter() },
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
 

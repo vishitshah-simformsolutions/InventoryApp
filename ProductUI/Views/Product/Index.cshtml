@@ -1,0 +1,465 @@
+﻿@model Playground.Controllers.EgressLotDetail
+
+@{
+    ViewData["Title"] = "Create Lot";
+    ViewData["Active"] = "CreateLot";
+}
+@using (Html.BeginForm("Index", "Lot", FormMethod.Post, new { id = "frmLot" }))
+{
+   
+
+    <div class="row">
+        <div class="col-md-12 border" id="lotFrm" style="float:left;">
+            <div style="height:70vh; overflow:hidden; overflow-y:auto; padding:25px">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                
+                <div class="form-group row mb-2">
+                    <label class="col-sm-2 col-form-label" asp-for="ProductId">Product Id</label>
+                    <div class="col-md-4">
+                        <div>
+                            <input asp-for="ProductId" class="form-control" value="" />
+                            <span asp-validation-for="ProductId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <label class="col-sm-2 col-form-label" asp-for="ItemId">Item Id</label>
+                    <div class="col-md-4">
+                        <div>
+                            <input asp-for="ItemId" class="form-control" value="" />
+                            <span asp-validation-for="ItemId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="col-sm-2 col-form-label" asp-for="SellingPrice">Manufacturing Price</label>
+                    <div class="col-md-4">
+                        <div>
+                            <input asp-for="SellingPrice" class="form-control" value="" />
+                            <span asp-validation-for="SellingPrice" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <label class="col-sm-2 col-form-label" asp-for="ManufacturingPrice">Selling price</label>
+                    <div class="col-md-4">
+                        <div>
+                            <input asp-for="ManufacturingPrice" class="form-control" value="" />
+                            <span asp-validation-for="ManufacturingPrice" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label class="col-sm-2 col-form-label" asp-for="Quantity">Quantity</label>
+                    <div class="col-md-4">
+                        <div>
+                            <input asp-for="Quantity" class="form-control" value="1" />
+                            <span asp-validation-for="Quantity" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+
+    <div class="row">
+        <label id="lotResponse" style="display:none" class="text-danger"></label>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 mb-2" style="margin-top: 15px; margin-left: -425px;">
+            <button type="button" class="btn btn-sm btn-primary" title="Submit lot" style="float: right;" id="btnSubmit">Submit</button>
+            <button type="button" class="btn btn-sm btn-primary" title="Edit lot" style="float: right; margin-right: 5px" id="btnEdit">Edit</button>
+            <button type="button" class="btn btn-sm btn-primary" title="Verify" style="float: right; margin-right: 5px" id="btnVerify">Verify</button>
+            <button type="button" class="btn btn-sm btn-danger" title="Delete lot" style="float: right; margin-right: 5px" id="btnDelete">
+                Delete
+            </button>
+            <button type="button" class="btn btn-sm btn-danger" title="Clear lot details" style="float: right; margin-right: 5px" id="btnClear" onclick="this.form.reset();">
+                Reset
+            </button>
+            <button type="button" class="btn btn-sm btn-success" title="Reset lot details to default" style="float: right; margin-right: 5px" id="btnReset" onclick="location.reload()">
+                Refresh
+            </button>
+        </div>
+    </div>
+
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    let scntDiv = $('#p_scents');
+    let lotResponseMsg = $('#lotResponse');
+    let todayDate = new Date();
+    let startDate = new Date();
+    let endDate = new Date();
+    startDate.setDate(startDate.getDate() - 1);
+    endDate.setDate(endDate.getDate() + 1);
+
+    $(document).ready(function () {
+        $('#btnVerify').click(function () {
+            lotResponseMsg.html("");
+            showLoader();
+            $.ajax({
+                url: '@Url.Action("VerifyLot")',
+                type: "POST",
+                data: getSerializeForm(),
+                dataType: 'json',
+                success: function (lotResponse) {
+                    hideLoader();
+                    verifyAndCreateLotResponseHandling(lotResponse,"verify");
+                },
+                error: function (xhr) {
+                    hideLoader();
+                    lotResponseMsg.show();
+                    lotResponseMsg.html("Service Unavailable.");
+                    lotResponseMsg.addClass("text-danger");
+                    console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+                }
+            });
+        });
+
+        $('#btnSubmit').click(function () {
+            lotResponseMsg.html("");
+            showLoader();
+
+            $.ajax({
+                url: '@Url.Action("CreateLot")',
+                type: "POST",
+                data: getSerializeForm(),
+                dataType: 'json',
+                success: function (lotResponse) {
+                    hideLoader();
+                    verifyAndCreateLotResponseHandling(lotResponse, "create");
+                },
+                error: function (xhr) {
+                    hideLoader();
+                    lotResponseMsg.show();
+                    lotResponseMsg.html("Service Unavailable.");
+                    lotResponseMsg.addClass("text-danger");
+                    console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+                }
+            });
+        });
+
+        $('#btnEdit').click(function () {
+            lotResponseMsg.html("");
+            showLoader();
+
+            $.ajax({
+                url: '@Url.Action("UpdateLot")',
+                type: "PUT",
+                data: getSerializeForm(),
+                dataType: 'json',
+                success: function (lotResponse) {
+                    hideLoader();
+                    verifyAndCreateLotResponseHandling(lotResponse, "edit");
+                },
+                error: function (xhr) {
+                    hideLoader();
+                    lotResponseMsg.html("Service Unavailable.");
+                    lotResponseMsg.addClass("text-danger");
+                    console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+                }
+            });
+        });
+
+        $('.addRange').click(function() {
+            var row = createAddRangeRow($('#p_scents tr').length);
+            var $tr = $('<tr>').append(row);
+            scntDiv.append($tr);
+        });
+
+        $('#btnDownload').click(function() {
+            let IsPiecemealFound = false, BiddingSuspendedFound = false;
+            let jsonString = "{";
+            let formAllElements = $('form#frmLot').serializeArray();
+            $.each(formAllElements,
+                function(index, dictionaryElement) {
+                    if (dictionaryElement.name !== "__RequestVerificationToken" && dictionaryElement.name.includes('increment[') === false) {
+                        if (dictionaryElement.name === "isPiecemeal") {
+                            if (!IsPiecemealFound) {
+                                IsPiecemealFound = true;
+                                jsonString += createJsonObjectString(dictionaryElement);
+                                return true;
+                            }
+                        } else if (dictionaryElement.name === "BiddingSuspended") {
+                            if (!BiddingSuspendedFound) {
+                                BiddingSuspendedFound = true;
+                                jsonString += createJsonObjectString(dictionaryElement);
+                                return true;
+                            }
+                        } else {
+                            jsonString += createJsonObjectString(dictionaryElement);
+                        }
+                    }
+                });
+
+            let incrementJson = '';
+            let incrementRows = $('#p_scents tr');
+            for (let i = 0; i < incrementRows.length; i++) {
+                let lowVal = $(incrementRows[i]).find('.low').val();
+                let highVal = $(incrementRows[i]).find('.high').val();
+                let incrementVal = $(incrementRows[i]).find('.increment').val();
+                incrementJson += '{"low":' + (lowVal === '' ? null : lowVal) + ',';
+                incrementJson += '"high":' + (highVal === '' ? null : highVal) + ',';
+                incrementJson += '"incrementValue":' + (incrementVal === '' ? null : incrementVal) + '},';
+            }
+            jsonString += '"increment":[' + incrementJson + ']';
+            jsonString += "}";
+
+            const a = document.createElement("a");
+            const file = new Blob([jsonString], { type: "text/plain" });
+            a.href = URL.createObjectURL(file);
+            a.download = "lotdetails.json";
+            a.click();
+        });
+
+        $('#btnGetLot').click(function() {
+            let AuctionId = Number($("#AuctionId").val());
+            let lotId = Number($("#LotId").val());
+            var errorList = "";
+            if (AuctionId > 0 && lotId > 0) {
+                showLoader();
+
+                $.ajax({
+                    url: '@Url.Action("LotDetails", "Marketplace")',
+                    type: "POST",
+                    data: { auctionid: AuctionId, lotId: lotId },
+                    dataType: 'json',
+                    success: function (lotResponse) {
+                        hideLoader();
+                        if (lotResponse != null && lotResponse.isValid === false && lotResponse.validationResults != null && lotResponse.validationResults.length > 0) {
+                            lotResponseMsg.show();
+                            $.each(lotResponse.validationResults,
+                                function(index, val) {
+                                    errorList += "<li>" + val.description + "</li>";
+                                });
+
+                            lotResponseMsg.html("<ul>" + errorList + "</ul>");
+                            lotResponseMsg.removeClass("text-success");
+                            lotResponseMsg.addClass("text-danger");
+                        }
+                        else
+                        {
+                            if (lotResponse.isValid) {
+                                lotResponseMsg.hide();
+                                bidLotDetails(lotResponse.lotDetail);
+                            }
+                            else {
+                                lotResponseMsg.show();
+                                lotResponseMsg.html(lotResponse.message);
+                                lotResponseMsg.addClass("text-danger");
+                            }
+                        }
+                    },
+                    error: function (xhr) {
+                        hideLoader();
+                        lotResponseMsg.html("Service Unavailable.");
+                        lotResponseMsg.addClass("text-danger");
+                        console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+                    }
+                });
+            }
+        });
+
+        $('#btnClear').click(function() {
+            $('form#frmLot input').attr('value', '');
+            $('#p_scents tr:gt(0)').remove();
+            $('#p_scents tr:first input').attr('value', '0');
+        });
+
+        $('#btnDelete').click(function () {
+            let AuctionId = Number($("#AuctionId").val());
+            let LotId = Number($("#LotId").val());
+            var errorList = "";
+            showLoader();
+
+            $.ajax({
+                url: '@Url.Action("DeleteLot")',
+                type: "DELETE",
+                data: { auctionid: AuctionId, lotid: LotId },
+                dataType: 'json',
+                success: function (lotResponse) {
+                    hideLoader();
+                    if (lotResponse != null && lotResponse.isValid === false && lotResponse.validationResults != null && lotResponse.validationResults.length > 0) {
+                        lotResponseMsg.show();
+                        $.each(lotResponse.validationResults,
+                            function(index, val) {
+                                errorList += "<li>" + val.description + "</li>";
+                            });
+
+                        lotResponseMsg.html("<ul>" + errorList + "</ul>");
+                        lotResponseMsg.removeClass("text-success");
+                        lotResponseMsg.addClass("text-danger");
+                    }
+                    else
+                    {
+                        if (lotResponse.isValid) {
+                            lotResponseMsg.show();
+                            lotResponseMsg.html("Lot deleted successfully.");
+                            lotResponseMsg.addClass("text-success");
+                            $('#btnClear').click();
+                        }
+                        else {
+                            lotResponseMsg.show();
+                            lotResponseMsg.html(lotResponse.message);
+                            lotResponseMsg.addClass("text-danger");
+                        }
+                    }
+                },
+                error: function (xhr) {
+                    hideLoader();
+                    lotResponseMsg.html("Service Unavailable.");
+                    lotResponseMsg.addClass("text-danger");
+                    console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+                }
+            });
+        });
+    });
+
+    $('#StartTime').val(startDate.toISOString().slice(0, 19));
+    $('#EndsFrom').val(endDate.toISOString().slice(0, 19));
+
+    function getSerializeForm() {
+        debugger;
+        let formAllElements = $('form#frmLot').serializeArray();
+        var serializedForm = formAllElements.filter(function(obj) {
+            if (obj.name.includes('increment[') || obj.name.includes('EgressIsPiecemeal') || obj.name.includes('BiddingSuspended')) {
+                return false;
+            }
+            return true;
+        });
+
+        let incrementRows = $('#p_scents tr');
+        for (let i = 0; i < incrementRows.length; i++) {
+            let lowVal = $(incrementRows[i]).find('.low').val();
+            let highVal = $(incrementRows[i]).find('.high').val();
+            let incrementVal = $(incrementRows[i]).find('.increment').val();
+            serializedForm.push(
+                { name: "increment[" + i + "].low", value: (lowVal === '' ? null : lowVal) },
+                { name: "increment[" + i + "].high", value: (highVal === '' ? null : highVal) },
+                { name: "increment[" + i + "].incrementValue", value: (incrementVal === '' ? null : incrementVal) }
+            );
+        }
+
+        serializedForm.push({ name: "EgressIsPiecemeal", value: $('#EgressIsPiecemeal').prop('checked') });
+        serializedForm.push({ name: "BiddingSuspended", value: $('#BiddingSuspended').prop('checked') });
+
+        return serializedForm;
+    }
+
+    function verifyAndCreateLotResponseHandling(lotResponse, responseFrom) {
+        var errorList = "";
+        if (lotResponse != null && lotResponse.isValid === false && lotResponse.validationResults != null && lotResponse.validationResults.length > 0) {
+            lotResponseMsg.show();
+            $.each(lotResponse.validationResults,
+                function(index, val) {
+                    errorList += "<li>" + val.description + "</li>";
+                });
+
+            lotResponseMsg.html("<ul>" + errorList + "</ul>");
+            lotResponseMsg.removeClass("text-success");
+            lotResponseMsg.addClass("text-danger");
+        } else {
+            if (lotResponse.isValid) {
+                $.each(lotResponse.validationResults,
+                    function (index, val) {
+                        errorList += "<li>" + val.description + "</li>";
+                    });
+                lotResponseMsg.show();
+                if (responseFrom === "verify") {
+                    lotResponseMsg.html("Lot details are valid. Please click submit to create lot. \n" + "<ul class='text-warning'>" + errorList + "</ul>");
+                }
+                else if (responseFrom === "create") {
+                    lotResponseMsg.html("Lot created successfully. \n" + "<ul class='text-warning'>" + errorList + "</ul>");
+                }
+                else if (responseFrom === "edit") {
+                    lotResponseMsg.html("Lot edited successfully. \n" + "<ul class='text-warning'>" + errorList + "</ul>");
+                }
+                lotResponseMsg.removeClass("text-danger");
+                lotResponseMsg.addClass("text-success");
+                bidLotDetails(lotResponse.lotDetail);
+            }
+            else {
+                lotResponseMsg.show();
+                lotResponseMsg.html(lotResponse.message);
+                lotResponseMsg.addClass("text-danger");
+            }
+        }
+    }
+
+    function createJsonObjectString(dictionaryElement) {
+        let fieldName = dictionaryElement.name;
+        let fieldVal = dictionaryElement.value;
+        if (Number(dictionaryElement.value) > 0) {
+            return '"' + fieldName + '":' + fieldVal + ',';
+        } else {
+            return '"' + fieldName + '":"' + fieldVal + '",';
+        }
+    }
+
+    function removeRangeRow(row) {
+        var i = $('#p_scents tr').length;
+        if (i > 1) {
+            $(row).closest('tr').remove();
+        }
+        return false;
+    }
+
+    function createAddRangeRow(rowNumber) {
+        var row =   '<td> <input id="increment_'+ rowNumber +'_low" name="increment['+ rowNumber +'].low" class="low form-control" /> </td>'+
+                    '<td> <input id="increment_'+ rowNumber +'_high" name="increment['+ rowNumber +'].high" class="high form-control" /></td>' +
+                    '<td> <input id="increment_'+ rowNumber +'_incrementValue" name="increment['+ rowNumber +'].incrementValue" class="increment form-control" /></td>'+
+                    '<td><a class="removeRange btn btn-sm" onclick="removeRangeRow(this)"><span title="Delete" class="fa fa-minus text-danger"></span></a></td>';
+        return row;
+    }
+
+    function bidLotDetails(lotDetails) {
+        if (lotDetails != null) {
+            for (var prop in lotDetails) {
+                if (prop === 'increment') {
+                    $('#p_scents tr:gt(0)').remove();
+                    for (var range in lotDetails[prop]) {
+                        if ($('#increment_' + range + '_low').length < 1) {
+                            var $tr = $('<tr>').append(createAddRangeRow(range));
+                            scntDiv.append($tr);
+                        }
+                        setFormControlValue('#increment_' + range + '_low', lotDetails[prop][range].low);
+                        setFormControlValue('#increment_' + range + '_high', lotDetails[prop][range].high);
+                        setFormControlValue('#increment_' + range + '_incrementValue', lotDetails[prop][range].incrementValue);
+                    }
+                }
+                else {
+                    debugger;
+                    if (prop.toUpperCase() == 'ISPIECEMEAL') {
+                        setFormControlValue('#EgressIsPiecemeal', lotDetails[prop]);
+                    }
+                    else {
+                        setFormControlValue('#' + toTitleCase(prop), lotDetails[prop]);
+                    }
+                }
+            }
+        }
+    }
+
+    function setFormControlValue(controlName, controlVal) {
+        var frmLot = $('form#frmLot');
+        var control = $(frmLot).find(controlName);
+        if (control.length > 0)
+        {
+            if (control.prop('type') === 'checkbox') {
+                control.prop('checked', controlVal);
+            }
+            else if (controlName === '#StartTime' || controlName === '#EndsFrom')
+            {
+                control.val(controlVal.split('Z')[0]);
+            }
+            else
+            {
+                control.val(controlVal);
+            }
+        }
+    }
+
+    function toTitleCase(str) {
+        return str.replace(/(?:^|\s)\w/g, function(match) {
+            return match.toUpperCase();
+        });
+    }
+</script>

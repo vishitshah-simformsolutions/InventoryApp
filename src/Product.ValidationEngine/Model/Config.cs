@@ -16,13 +16,10 @@ namespace Product.ValidationEngine.Model
         #region Properties
 
         private static List<PlatformConfig> PlatformRules { get; }
-        private static List<RuleType> DefaultLotRuleGroup { get; }
-        private static List<RuleType> DefaultAuctionRuleGroup { get; }
-        public List<RuleType> AuctionRuleGroup { get; }
-        public List<RuleType> LotRuleGroup { get; }
+        private static List<RuleType> DefaultProductRuleGroup { get; }
+        public List<RuleType> ProductRuleGroup { get; }
 
         public static Dictionary<string, bool> DynamicAuditLogRules { get; }
-        public static Dictionary<string, string> ErrorDescriptions { get; }
 
         #endregion
 
@@ -54,8 +51,7 @@ namespace Product.ValidationEngine.Model
                 var platformConfig = PlatformRules.FirstOrDefault(x => x.PlatformCode == "0");
                 if (platformConfig != null)
                 {
-                    DefaultLotRuleGroup = platformConfig.LotRuleGroup;
-                    DefaultAuctionRuleGroup = platformConfig.AuctionRuleGroup;
+                    DefaultProductRuleGroup = platformConfig.ProductRuleGroup;
                 }
                 else
                 {
@@ -82,13 +78,11 @@ namespace Product.ValidationEngine.Model
             if (PlatformRules.Any(x => x.PlatformCode == platformCode))
             {
                 var platformGroup = PlatformRules.FirstOrDefault(x => x.PlatformCode == platformCode);
-                LotRuleGroup = platformGroup?.LotRuleGroup;
-                AuctionRuleGroup = platformGroup?.AuctionRuleGroup;
+                ProductRuleGroup = platformGroup?.ProductRuleGroup;
             }
             else
             {
-                LotRuleGroup = DefaultLotRuleGroup;
-                AuctionRuleGroup = DefaultAuctionRuleGroup;
+                ProductRuleGroup = DefaultProductRuleGroup;
             }
         }
 

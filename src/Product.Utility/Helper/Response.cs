@@ -8,7 +8,6 @@ using Product.DataModel.Shared;
 
 namespace Product.Utility.Helper
 {
-    // TODO: Rename this class and file
     public static class Response
     {
         #region Constructor
