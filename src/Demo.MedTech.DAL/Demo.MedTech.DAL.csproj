@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="EnterpriseLibrary.TransientFaultHandling.Data.NetCore" Version="6.0.1312" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Demo.MedTech.Common\Demo.MedTech.Common.csproj" />
+  </ItemGroup>
+
+</Project>

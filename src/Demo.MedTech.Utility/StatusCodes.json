@@ -1,0 +1,243 @@
+[
+  {
+    "code": 100,
+    "value": "ERROR_MISSING_DATA",
+    "description": "Required parameter [{0}] missing from signature",
+    "priority": 38
+  },
+  {
+    "code": 101,
+    "value": "ERROR_INVALID_DATATYPE",
+    "description": "Data type mismatched for parameter(s) [{0}]",
+    "priority": 39
+  },
+  {
+    "code": 102,
+    "value": "ERROR_INVALID_BIDDER",
+    "description": "Invalid Bidder Id",
+    "priority": 47
+  },
+  {
+    "code": 103,
+    "value": "ERROR_INVALID_AUCTION",
+    "description": "Invalid auction Id",
+    "priority": 44
+  },
+  {
+    "code": 104,
+    "value": "ERROR_INVALID_LOT",
+    "description": "Invalid Lot Id",
+    "priority": 45
+  },
+  {
+    "code": 105,
+    "value": "ERROR_LOT_NOT_FOUND",
+    "description": "Lot not found",
+    "priority": 46
+  },
+  {
+    "code": 106,
+    "value": "ERROR_INACTIVE_LOT",
+    "description": "Bidding has been suspended for this lot",
+    "priority": 49
+  },
+  {
+    "code": 107,
+    "value": "ERROR_INVALID_PLATFORM",
+    "description": "Invalid platform Id",
+    "priority": 40
+  },
+  {
+    "code": 108,
+    "value": "ERROR_UNAUTHORIZED_PLATFORM",
+    "description": "Platform is unauthorized for this lot",
+    "priority": 41
+  },
+  {
+    "code": 109,
+    "value": "ERROR_INVALID_MARKETPLACE",
+    "description": "Invalid marketplace Id",
+    "priority": 42
+  },
+  {
+    "code": 110,
+    "value": "ERROR_UNAUTHORIZED_MARKETPLACE",
+    "description": "Marketplace is unauthorized for this lot",
+    "priority": 43
+  },
+  {
+    "code": 111,
+    "value": "ERROR_START_DATE_IN_FUTURE",
+    "description": "Bidding not yet started for this lot",
+    "priority": 48
+  },
+  {
+    "code": 112,
+    "value": "ERROR_END_DATE_IN_PAST",
+    "description": "Bidding has ended for this lot",
+    "priority": 50
+  },
+  {
+    "code": 113,
+    "value": "ERROR_INVALID_MAXBID",
+    "description": "Max bid must be a positive numeric value",
+    "priority": 53
+  },
+  {
+    "code": 114,
+    "value": "ERROR_OFF_INCREMENT",
+    "description": "Max bid amount is off increment. Must be either {0} or {1}",
+    "priority": 58
+  },
+  {
+    "code": 115,
+    "value": "ERROR_BELOW_MINBID",
+    "description": "Max Bid is below the current minimum bid",
+    "priority": 57
+  },
+  {
+    "code": 116,
+    "value": "ERROR_CONFIGURE_CONTEXT",
+    "description": "Configuration Context is not set for SBS validation rule engine",
+    "priority": 51
+  },
+  {
+    "code": 117,
+    "value": "ERROR_SAME_BID_SUBMITTED",
+    "description": "The bid you are trying to submit is already submitted",
+    "priority": 54
+  },
+  {
+    "code": 118,
+    "value": "ERROR_BELOW_CURRENTBID",
+    "description": "The submitted max bid cannot be less than current bid",
+    "priority": 56
+  },
+  {
+    "code": 119,
+    "value": "ERROR_INVALID_AUCTIONEER_ID",
+    "description": "Invalid auctioneer Id",
+    "priority": 52
+  },
+  {
+    "code": 150,
+    "value": "ERROR_MANDATORY_FIELD_MISSING",
+    "description": "Mandatory field missing: [{0}]",
+    "priority": 4
+  },
+  {
+    "code": 151,
+    "value": "ERROR_INVALID_INCREMENT_TABLE",
+    "description": "If any of the business rule for the valid increment table fails then system should throw this error with the message what all business rules have failed",
+    "priority": 8
+  },
+  {
+    "code": 152,
+    "value": "ERROR_RESERVE_LESS_THAN_OPENING",
+    "description": "The reserve is lower than the opening",
+    "priority": 9
+  },
+  {
+    "code": 153,
+    "value": "ERROR_BIN_LESS_THAN_OPENING",
+    "description": "The BIN is lower than the opening",
+    "priority": 10
+  },
+  {
+    "code": 154,
+    "value": "ERROR_BIN_LESS_THAN_RESERVE",
+    "description": "The BIN is lower than the reserve",
+    "priority": 11
+  },
+  {
+    "code": 155,
+    "value": "ERROR_END_TIME_BEFORE_START_TIME",
+    "description": "The start time cannot be after the end time",
+    "priority": 12
+  },
+  {
+    "code": 156,
+    "value": "ERROR_START_TIME_FORMAT",
+    "description": "The start time must be specified in ISO 8601 format [yyyy-MM-ddTHH:mm:ss.fffZ]",
+    "priority": 13
+  },
+  {
+    "code": 157,
+    "value": "ERROR_END_TIME_FORMAT",
+    "description": "The end time must be specified in ISO 8601 format [yyyy-MM-ddTHH:mm:ss.fffZ]",
+    "priority": 14
+  },
+  {
+    "code": 158,
+    "value": "ERROR_INVALID_QUANTITY",
+    "description": "The quantity value cannot be less than zero",
+    "priority": 15
+  },
+  {
+    "code": 159,
+    "value": "ERROR_INVALID_CURRENCY_TYPE",
+    "description": "The currency must be specified in ISO 4217 format",
+    "priority": 16
+  },
+  {
+    "code": 160,
+    "value": "ERROR_INVALID_BIDDING_TYPE",
+    "description": "The bidding type must be set to Timed",
+    "priority": 17
+  },
+  {
+    "code": 161,
+    "value": "ERROR_FIELDS_NOT_UPDATED",
+    "description": "The {0} cannot be updated if the lot end time is in past",
+    "priority": 18
+  },
+  {
+    "code": 162,
+    "value": "ERROR_RESERVE_TYPE_NOT_UPDATED",
+    "description": "The reserve type cannot be updated as there are active bids on the lot",
+    "priority": 19
+  },
+  {
+    "code": 163,
+    "value": "ERROR_INVALID_AUCTION_HOUSE_ID",
+    "description": "The auction house id must be a positive numeric value",
+    "priority": 20
+  },
+  {
+    "code": 164,
+    "value": "ERROR_LOT_EXISTS",
+    "description": "Lot already exists",
+    "priority": 7
+  },
+  {
+    "code": 165,
+    "value": "ERROR_RETRACT_&_RECALCULATE_NO_ACTIVE_BIDS_ON_LOT",
+    "description": "Retract & re-calculate cannot be performed when there are no active bids",
+    "priority": 65
+  },
+  {
+    "code": 166,
+    "value": "ERROR_RETRACT_&_RECALCULATE_INACTIVE_LOT",
+    "description": "Retract & re-calculate cannot be performed on an inactive lot",
+    "priority": 64
+  },
+  {
+    "code": 167,
+    "value": "ERROR_RETRACT_&_RECALCULATE_NO_ACTIVE_BIDS_BY_BIDDER",
+    "description": "Retract & re-calculate cannot be performed when there are no active bids belonging to the requested bidder",
+    "priority": 66
+  },
+  {
+    "code": 168,
+    "value": "ERROR_AUCTIONHOUSE_ID_MISMATCH",
+    "description": "Auction House ID can not be edited on an existing Lot",
+    "priority": 6
+  },
+  {
+    "code": 169,
+    "value": "ERROR_CANNOT_REDUCE_MAX_BID",
+    "description": "This channel does not allow Lead Bidder to reduce their max bid",
+    "priority": 55
+  },
+  
+]

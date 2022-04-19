@@ -1,0 +1,18 @@
+{
+  "domain": "sbs",
+  "subDomain": "marketplace",
+  "publishDetails": {
+    "isPremiumAuctionHouse": "true",
+    "isPriorityEvent": "false",
+    "sourcePlatform": 21,
+    "platforms": [
+      {
+        "platform": 0,
+        "marketplace": {
+          "receiver": [ 1, 2, 3 ],
+          "excluded": []
+        }
+      }
+    ]
+  }
+}

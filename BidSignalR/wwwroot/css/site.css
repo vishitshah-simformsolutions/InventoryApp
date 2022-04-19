@@ -1,0 +1,307 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: slategrey;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+.accordion-collapse {
+    border-width: 0 1px 1px;
+}
+
+.accordion-button.collapsed {
+    border-bottom-width: 1px;
+}
+
+.notify-text {
+    font-size: 14px
+}
+
+.form-check-label {
+    font-size: 14px
+}
+
+.clock-item .inner {
+    height: 0px;
+    padding-bottom: 100%;
+    position: relative;
+    width: 100%;
+}
+
+.clock-canvas {
+    background-color: #eeebeb;
+    border-radius: 50%;
+    height: 0px;
+    padding-bottom: 100%;
+}
+
+.text {
+    color: gray;
+    font-weight: bold;
+    margin-top: -25px;
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    width: 100%;
+}
+
+    .text .val {
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+
+    .text .type-time {
+        font-size: 10px;
+    }
+
+nav {
+    position: relative;
+    width: 100%;
+    height: 55px;
+    background-color: #34488D;
+    font-size: 0;
+    margin-bottom: 10px;
+}
+
+    nav a {
+        line-height: 55px;
+        height: 100%;
+        font-size: 15px;
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+        text-decoration: none;
+        text-transform: uppercase;
+        text-align: center;
+        color: white !important;
+        cursor: pointer;
+        width: 100px;
+    }
+
+    nav .animation {
+        position: absolute;
+        height: 100%;
+        top: 0;
+        z-index: 0;
+        transition: all .5s ease 0s;
+        /*border-radius: 8px;*/
+    }
+
+    nav a.active {
+        background-color: #349898;
+        color: white;
+    }
+
+    nav a:nth-child(1) {
+        width: 100px;
+    }
+
+    nav a:nth-child(2) {
+        width: 110px;
+    }
+
+    nav a:nth-child(3) {
+        width: 100px;
+    }
+
+    nav a:nth-child(4) {
+        width: 100px;
+    }
+
+    nav a:nth-child(5) {
+        width: 100px;
+    }
+
+    nav a:nth-child(1):hover ~ .animation {
+        width: 100px;
+        left: 0;
+        background-color: transparent;
+        color: white;
+    }
+
+    nav a:nth-child(2):hover ~ .animation {
+        width: 110px;
+        left: 100px;
+        background-color: #3498db;
+        color: white;
+        border-radius: 5px;
+        border-left: 5px solid #34495e;
+        border-right: 5px solid #34495e;
+    }
+
+    nav a:nth-child(3):hover ~ .animation {
+        width: 100px;
+        left: 210px;
+        background-color: #3498db;
+        color: white;
+        border-left: 5px solid #34495e;
+        border-right: 5px solid #34495e;
+    }
+
+    nav a:nth-child(4):hover ~ .animation {
+        width: 100px;
+        left: 310px;
+        background-color: #3498db;
+        color: white;
+        border-left: 5px solid #34495e;
+        border-right: 5px solid #34495e;
+    }
+
+    nav a:nth-child(5):hover ~ .animation {
+        width: 100px;
+        left: 410px;
+        background-color: #3498db;
+        color: white;
+        border-left: 5px solid #34495e;
+        border-right: 5px solid #34495e;
+    }
+
+.spanner {
+    position: absolute;
+    top: 35%;
+    left: 0;
+    width: 100%;
+    display: block;
+    text-align: center;
+    height: 300px;
+    color: #FFF;
+    transform: translateY(-50%);
+    z-index: 9999;
+    visibility: hidden;
+}
+
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    visibility: hidden;
+    margin-left: -12px;
+    margin-top: -10px;
+    z-index: 9999;
+}
+
+.loader,
+.loader:before,
+.loader:after {
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation: load7 1.8s infinite ease-in-out;
+    animation: load7 1.8s infinite ease-in-out;
+}
+
+.loader {
+    color: #ffffff;
+    font-size: 10px;
+    margin: 80px auto;
+    position: relative;
+    text-indent: -9999em;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+    .loader:before,
+    .loader:after {
+        content: '';
+        position: absolute;
+        top: 0;
+    }
+
+    .loader:before {
+        left: -3.5em;
+        -webkit-animation-delay: -0.32s;
+        animation-delay: -0.32s;
+    }
+
+    .loader:after {
+        left: 3.5em;
+    }
+
+.show {
+    visibility: visible;
+}
+
+.spanner, .overlay {
+    opacity: 0;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+    .spanner.show, .overlay.show {
+        opacity: 1
+    }

@@ -1,0 +1,36 @@
+[
+  {
+    "PlatformCode": "0",
+    "LotRuleGroup": [
+      {
+        "RuleExecutionType": "Atomic",
+        "SoftRules": {},
+        "HardRules": {
+          "HasValidLot": true,
+          "HasValidAuction": true,
+          "IsValidIncrementTable": true,
+          "HasValidQuantity": true
+        }
+      },
+      {
+        "RuleExecutionType": "Transformation",
+        "SoftRules": {},
+        "HardRules": {
+          "TransformIncrementTable": true,
+          "TransformOpeningToOnIncrement": true,
+          "TransformReserveToOnIncrement": true,
+          "TransformOpeningToFirstIncrement": true,
+          "TransformReserveToNull": true,
+          "TransformQuantity": true
+        }
+      },
+      {
+        "RuleExecutionType": "Composite",
+        "SoftRules": {},
+        "HardRules": {
+          "IsReserveGreaterThanOpening": true
+        }
+      }
+    ]
+  }
+]

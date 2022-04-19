@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Version>1.0.35</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Egress\**" />
+    <EmbeddedResource Remove="Egress\**" />
+    <None Remove="Egress\**" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Application\Domain\**" />
+    <Compile Remove="Application\Policies\**" />
+    <Compile Remove="Application\Validators\**" />
+    <Compile Remove="Domain\Model\**" />
+    <Content Remove="Application\Domain\**" />
+    <Content Remove="Application\Policies\**" />
+    <Content Remove="Application\Validators\**" />
+    <Content Remove="Domain\Model\**" />
+    <EmbeddedResource Remove="Application\Domain\**" />
+    <EmbeddedResource Remove="Application\Policies\**" />
+    <EmbeddedResource Remove="Application\Validators\**" />
+    <EmbeddedResource Remove="Domain\Model\**" />
+    <None Remove="Application\Domain\**" />
+    <None Remove="Application\Policies\**" />
+    <None Remove="Application\Validators\**" />
+    <None Remove="Domain\Model\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Extensions\HostBuilderExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Dockerfile" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.4.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.17.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.Kubernetes" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="4.4.0" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="3.1.12" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Demo.MedTech.Service\Demo.MedTech.Service.csproj" />
+  </ItemGroup>
+
+
+</Project>

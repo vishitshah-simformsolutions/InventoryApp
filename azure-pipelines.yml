@@ -1,0 +1,53 @@
+trigger:
+- main
+- feature/*
+- dev
+
+variables:
+  - group: 'swagger-bootup-environments'
+  - name: vstsFeed
+    value: 'Product'
+stages:
+- stage: Build
+  displayName: Build Stage
+  jobs:
+  - job: CreateBuild
+    displayName: Prepare Build
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - task: UseDotNet@2
+      displayName: ".NET Core 3.1.x"
+      inputs:
+        version: '3.1.x'
+        packageType: sdk
+    - task: DotNetCoreCLI@2
+      displayName: 'NuGet restore'
+      inputs:
+        command: 'restore'
+        feedRestore: '$(vstsFeed)'
+        projects: '$(System.DefaultWorkingDirectory)/**/*.csproj'   
+    - task: DotNetCoreCLI@2
+      displayName: 'Build'
+      inputs:
+        command: 'build'
+        feedRestore: '$(vstsFeed)'
+        projects: '$(System.DefaultWorkingDirectory)/**/*.csproj'
+        arguments: '--configuration Release'         
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish Web Project'
+      inputs:
+        command: 'publish'
+        publishWebProjects: true
+        projects: '$(System.DefaultWorkingDirectory)/**/*.csproj'
+        arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: true
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: $(Build.BinariesDirectory)
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/deployment.zip'
+        replaceExistingArchive: true
+    - publish: $(Build.ArtifactStagingDirectory)/
+      artifact: deployment 

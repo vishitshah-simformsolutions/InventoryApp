@@ -1,0 +1,305 @@
+﻿@{
+    ViewData["Title"] = "Place Bid";
+    ViewData["Active"] = "PlaceBid";
+}
+
+<body>
+<div class="border">
+    <div class="row justify-content-center" style="padding: 20px">
+        <div class="col-3">
+            <partial name="Bid" />
+        </div>
+        <div class="col-9">
+            <div class="clearfix">
+                <div class="row">
+                    <div class="col-md-6 pt-4">
+                        <button class="btn btn-sm btn-primary" style="float: right; margin-left: 5px;" id="activeBids" onclick="loadBids();" title="Bid history">Bids</button>
+                        <button class="btn btn-sm btn-primary" style="float: right; margin-left: 5px;" id="auditBids" onclick="loadAudit();" title="Bid audits">Audit</button>
+                        <button type="button" style="float: right; margin-left: 5px;" id="btnInfo" data-bs-toggle="modal" data-bs-target="#
+                                
+                                " class="btn btn-primary btn-sm">Info</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-auto border" id="pnlactiveBids" style="margin-top: 5px;">
+                <div class="form-group" style="padding:15px;height: 55vh;overflow-y: auto;">
+                    <div class="accordion" id="accordionPanelsStayOpenExample"></div>
+                    <div id="error"></div>
+                </div>
+            </div>
+            <div id="sectionAudit" style="visibility: hidden; margin-top:10px">
+                <div class="form-check form-switch" style="margin-bottom: 10px;">
+                    <label class="form-check-label" for="flexSwitchCheckChecked">Show system bids</label>
+                    <input class="form-check-input" type="checkbox" checked="checked" id="showSysBids" />
+                    <button type="button" id="btnDownload" class="btn btn-sm btn-success"><span title="Add" class="fa fa-download"></span></button>
+                    <div class="col-md-2 pull-right">
+                        <input type="text" class="form-control" placeholder="Highlight delta" id="txtHighlightDelta" style="visibility: hidden;" />
+                    </div>
+                </div>
+                <div class="col-md-auto border" id="lstAudit" style="overflow:hidden">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999999999;">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Place Bid Info</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="accordion" id="accordionDef1">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="acc1">
+                                        <button aria-controls="colps1" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps1" data-bs-toggle="collapse" type="button">
+                                            Auction
+                                        </button>
+                                    </h2>
+                                    <div aria-labelledby="acc1" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps1" style="">
+                                        <div class="accordion-body">
+                                            <strong>
+                                                Definition of Auction.
+                                            </strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="acc2">
+                                        <button aria-controls="colps2" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps2" data-bs-toggle="collapse" type="button">
+                                            Lot
+                                        </button>
+                                    </h2>
+                                    <div aria-labelledby="acc2" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps2">
+                                        <div class="accordion-body">
+                                            <strong>
+                                                Definition of Lot.
+                                            </strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="acc3">
+                                        <button aria-controls="colps3" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps3" data-bs-toggle="collapse" type="button">
+                                            Platform
+                                        </button>
+                                    </h2>
+                                    <div aria-labelledby="acc3" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps3">
+                                        <div class="accordion-body">
+                                            <strong>
+                                                Definition of Platform.
+                                            </strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="acc4">
+                                        <button aria-controls="colps4" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps4" data-bs-toggle="collapse" type="button">
+                                            Marketplace
+                                        </button>
+                                    </h2>
+                                    <div aria-labelledby="acc4" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps4" style="">
+                                        <div class="accordion-body">
+                                            <strong>
+                                                Definition for Marketplace.
+                                            </strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="acc5">
+                                        <button aria-controls="colps5" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps5" data-bs-toggle="collapse" type="button">
+                                            Bidder
+                                        </button>
+                                    </h2>
+                                    <div aria-labelledby="acc5" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps5" style="">
+                                        <div class="accordion-body">
+                                            <strong>
+                                                Definition for Bidder.
+                                            </strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="acc6">
+                                        <button aria-controls="colps6" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps6" data-bs-toggle="collapse" type="button">
+                                            Amount
+                                        </button>
+                                    </h2>
+                                    <div aria-labelledby="acc6" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps6" style="">
+                                        <div class="accordion-body">
+                                            <strong>
+                                                Definition of Amount.
+                                            </strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<style>
+    pre {
+        font-size: 1em;
+    }
+
+    .string {
+        color: #0554A2;
+    }
+
+    .number {
+        color: #14855A;
+    }
+
+    .boolean {
+        color: blue;
+    }
+
+    .null {
+        color: magenta;
+    }
+
+    .key {
+        color: #A21319;
+    }
+</style>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/CountDown/kinetic.js"></script>
+<script src="~/lib/CountDown/jquery.final-countdown.js"></script>
+
+<script type="text/javascript">
+    var counterRef;
+    $(document).ready(function () {
+        $("#btnDownload").click(function () {
+            var rows = [];
+            var str = '';
+
+            $(".table").find("tr").each(function () {
+                //header row
+                if ($(this).find("th").length) {
+                    var headerArray = [];
+                    $(this).find("th").each(function () {
+                        str = $(this).text().replace(/"/g, '""');
+                        headerArray.push('"' + str.trim() + '"');
+                    });
+                    rows.push(headerArray.join(','));
+                } else {
+                    //data rows
+                    var dataArray = [];
+                    $(this).find("td").each(function () {
+                        str = $(this).text().replace(/"/g, '""');
+                        dataArray.push('"' + str.trim() + '"');
+                    });
+                    rows.push(dataArray.join(','));
+                }
+            });
+
+            var csvContent = rows.join('\n');
+            download(csvContent, 'biddetails.csv', 'text/csv;encoding:utf-8');
+        });
+        $('#txtHighlightDelta').change(function () {
+            var deltaVal = Number($(this).val());
+            if (deltaVal > 0) {
+                $('.delta').each(function (index, cell) {
+                    $(cell).removeClass('bg-danger text-white');
+                    if (Number(cell.innerText) > deltaVal) {
+                        $(cell).addClass('bg-danger text-white');
+                    }
+                });
+            }
+        });
+    });
+    
+    // get lot details
+    function getLotDetails() {
+        let AuctionId = $("#AuctionId").val().trim();
+        let LotId = $("#LotId").val().trim();
+        var errorList = "";
+        showLoader();
+        $.ajax({
+            url: '@Url.Action("LotDetails")',
+            type: "POST",
+            data: { auctionid: AuctionId, lotid: LotId },
+            dataType: 'json',
+            success: function (response) {
+                hideLoader();
+                if (response != null && response.isValid === false && response.validationResults != null && response.validationResults.length > 0) {
+                    $.each(response.validationResults,
+                        function(index, val) {
+                            errorList += "<li>" + val.description + "</li>";
+                        });
+                    document.getElementById("lotModalBody").innerHTML = "<ul>" + errorList + "</ul>";
+                } else {
+                    var lotJson = JSON.stringify(response.lotDetail, undefined, 4);
+                    setLotDetailModal(lotJson);
+                }
+            },
+            error: function(xhr) {
+                hideLoader();
+                console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+            }
+        });
+    }
+
+    // download
+    function download(content, fileName, mimeType) {
+        var a = document.createElement('a');
+        mimeType = mimeType || 'application/octet-stream';
+
+        if (navigator.msSaveBlob) { // IE10
+            navigator.msSaveBlob(new Blob([content],
+                    {
+                        type: mimeType
+                    }),
+                fileName);
+        } else if (URL && 'download' in a) { //html5 A[download]
+            a.href = URL.createObjectURL(new Blob([content],
+                {
+                    type: mimeType
+                }));
+            a.setAttribute('download', fileName);
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } else {
+            location.href = 'data:application/octet-stream,' + encodeURIComponent(content); // only this mime type is supported
+        }
+    }
+
+    function auctionTimer(endTime) {
+        let currentTime = new Date();
+        let utcTime = (currentTime.getTime() + currentTime.getTimezoneOffset() * 60000);
+        counterRef.final_countdown({
+                start: Math.round(utcTime / 1000.0),
+                end: Math.round(new Date(endTime).getTime() / 1000.0),
+                now: Math.round(utcTime / 1000.0)
+            },
+            function() {
+            });
+    }
+
+    jQuery(document).ready(function($) {
+        $('.countdown').final_countdown({
+                start: 0,
+                end: 0,
+                now: 0
+            },
+            function() {
+                //callback function
+                counterRef = $(this);
+            });
+    });
+
+</script>

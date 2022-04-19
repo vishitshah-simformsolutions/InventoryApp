@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Version>1.0.35</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Helper\ILogHelper.cs" />
+    <Compile Remove="Helper\LogHelper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="StatusCodes.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="StatusCodes.json">
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Demo.MedTech.DataModel\Demo.MedTech.DataModel.csproj" />
+  </ItemGroup>
+
+</Project>

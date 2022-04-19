@@ -1,0 +1,13 @@
+{
+  "BootupLogMessage": "LogLevel: {0}, LogType: {1}, Message: {2}, Details: {3}",
+  "ValidationFailed": "Validation failed with {0}.",
+  "FailedHttpClient": "Failed HttpClient request with message as {0}.",
+  "ServiceUnavailable": "Service unavailable, please try again later.",
+  "InsufficientHeaders": "Insufficient request headers.",
+  "TransientError": "Service call failed with transient exception as {0} and base exception as {1}",
+  "TransientMessage": "Please try again after some time.",
+  "NonTransientError": "Non transient exception with errors as: {0}.",
+  "NonTransientMessage": "Internal Server Error.",
+  "UnknownErrorOccurred": "Unknown error occurred with message as {0}.",
+  "RecordNotFound": "Record not found for {0}:{1}."
+}

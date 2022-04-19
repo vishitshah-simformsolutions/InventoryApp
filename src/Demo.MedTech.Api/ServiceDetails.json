@@ -1,0 +1,26 @@
+{
+  "domain_name": "GAPShared",
+  "service_name": "SBS.Auctioneer",
+  "platform": "MedTech",
+  "service_details": [
+    {
+      "service_description": "SBS Auctioneer apis",
+      "service_access_type": "public",
+      "service_protocol_type": "https",
+      "authentication_type": "bearer",
+      "tags": "Tags",
+      "is_third_party_service": "no",
+      "region": "{{LOCATION}}",
+      "address": {
+        "primary": "{{PRIMARY_ADDRESS}}",
+        "fallback": "{{FALLBACK_ADDRESS}}"
+      },
+      "port": 443,
+      "stage": "release",
+      "health_endpoint": "{{HEALTH_PATH}}",
+      "frequency": 90,
+      "dependent_services": [],
+      "version": "1"
+    }
+  ]
+}
