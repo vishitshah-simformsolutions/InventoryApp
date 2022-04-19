@@ -18,7 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Demo.MedTech.Service\Demo.MedTech.Service.csproj" />
+    <ProjectReference Include="..\..\src\Product.DAL\Product.DAL.csproj" />
+    <ProjectReference Include="..\..\src\Product.Service\Product.Service.csproj" />
+    <ProjectReference Include="..\..\src\Product.Utility\Product.Utility.csproj" />
+    <ProjectReference Include="..\..\src\Product.ValidationEngine\Product.ValidationEngine.csproj" />
   </ItemGroup>
 
 </Project>

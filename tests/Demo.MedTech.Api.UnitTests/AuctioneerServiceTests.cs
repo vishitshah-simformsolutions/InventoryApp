@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Demo.MedTech.DAL;
-using Demo.MedTech.DataModel.Exceptions;
-using Demo.MedTech.DataModel.Response;
-using Demo.MedTech.DataModel.Shared;
-using Demo.MedTech.Service;
-using Demo.MedTech.Utility.Helper;
-using Demo.MedTech.ValidationEngine.Rules;
+using Product.DAL;
+using Product.DataModel.Exceptions;
+using Product.DataModel.Response;
+using Product.DataModel.Shared;
+using Product.Utility.Helper;
+using Product.ValidationEngine.Rules;
 using Moq;
 using Xunit;
+using Product.UnitTests;
+using Product.Service;
 
-namespace Demo.MedTech.Api.UnitTests
+namespace Product.Api.UnitTests
 {
     public class AuctioneerServiceTests : IClassFixture<AuctioneerServiceTests.AuctioneerServiceFixture>
     {

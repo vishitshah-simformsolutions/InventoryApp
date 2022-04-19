@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Demo.MedTech.DataModel.Exceptions;
-using Demo.MedTech.Utility.Helper;
-using Demo.MedTech.ValidationEngine.Model;
-using Demo.MedTech.ValidationEngine.Rules;
+using Product.DataModel.Exceptions;
+using Product.Utility.Helper;
+using Product.ValidationEngine.Model;
+using Product.ValidationEngine.Rules;
 using Xunit;
 
-namespace Demo.MedTech.Api.UnitTests.Auctioneer
+namespace Product.Api.UnitTests.Auctioneer
 {
     public class ValidatorTests
     {

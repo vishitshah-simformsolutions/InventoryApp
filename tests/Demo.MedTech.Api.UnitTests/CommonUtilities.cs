@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Product.DataModel.Shared;
+using Product.Utility.Helper;
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Demo.MedTech.DataModel.Request;
-using Demo.MedTech.DataModel.Shared;
-using Demo.MedTech.Utility.Helper;
 
-namespace Demo.MedTech.Api.UnitTests
+namespace Product.UnitTests
 {
     public static class CommonUtilities
     {
@@ -46,7 +45,7 @@ namespace Demo.MedTech.Api.UnitTests
                     new BiddingState
                     {
                         Id = "445939884",
-                        Action = new Demo.MedTech.DataModel.Shared.Action
+                        Action = new Product.DataModel.Shared.Action
                         {
                             ActorType = ActorTypes.Bidder,
                             

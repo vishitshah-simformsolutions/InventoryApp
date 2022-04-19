@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Demo.MedTech.DataModel.Request;
-using Demo.MedTech.DataModel.Response;
+using Product.DataModel.Request;
+using Product.DataModel.Response;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;

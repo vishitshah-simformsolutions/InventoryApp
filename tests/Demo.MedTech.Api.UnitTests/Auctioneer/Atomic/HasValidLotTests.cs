@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Demo.MedTech.Utility.Helper;
-using Demo.MedTech.ValidationEngine.Model;
-using Demo.MedTech.ValidationEngine.Rules;
-using Demo.MedTech.ValidationEngine.Rules.Auctioneer.Atomic;
+using Product.UnitTests;
+using Product.Utility.Helper;
+using Product.ValidationEngine.Model;
+using Product.ValidationEngine.Rules;
+using Product.ValidationEngine.Rules.Auctioneer.Atomic;
 using Xunit;
 
-namespace Demo.MedTech.Api.UnitTests.Auctioneer.Atomic
+namespace Product.Api.UnitTests.Auctioneer.Atomic
 {
     public class HasValidLotTests
     {

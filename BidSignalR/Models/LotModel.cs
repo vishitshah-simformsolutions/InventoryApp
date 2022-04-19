@@ -1,4 +1,4 @@
-﻿using Demo.MedTech.DataModel.Shared;
+﻿using Product.DataModel.Shared;
 
 namespace Playground.Models
 {

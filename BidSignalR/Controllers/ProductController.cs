@@ -1,4 +1,4 @@
-﻿using Demo.MedTech.DataModel.Shared;
+﻿using Product.DataModel.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
