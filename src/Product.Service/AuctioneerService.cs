@@ -80,12 +80,12 @@ namespace Product.Service
 
         private async Task<EditedLotResponse> CreateAsync(string request, CancellationToken cancellationToken)
         {
-            LotModel lotModel = new LotModel();
+            ProductModel lotModel = new ProductModel();
             RuleValidationMessage ruleValidationMessage;
 
             using var lotDoc = JsonDocument.Parse(request);
             var jsonLot = lotDoc.RootElement;
-            var _lotDetail = AuctioneerUtility.GetPropertyCaseInsensitive(jsonLot, nameof(LotDetail));
+            var _lotDetail = AuctioneerUtility.GetPropertyCaseInsensitive(jsonLot, nameof(ProductDetail));
             string lotDetail = !string.IsNullOrEmpty(_lotDetail.Value.ToString()) ? _lotDetail.Value.ToString() : "{}";
 
             // If constructor throws error related to RuleEngineException and ArgumentNullException.
@@ -127,21 +127,21 @@ namespace Product.Service
         #endregion
 
         #region Auctioneer Activity
-        public async Task<(object, LotDetail)> UpdateWithRetryAsync(LotRequest request, CancellationToken cancellationToken)
+        public async Task<(object, ProductDetail)> UpdateWithRetryAsync(LotRequest request, CancellationToken cancellationToken)
         {
             return await UpdateAsync(request, cancellationToken);
         }
 
-        public async Task<(RuleValidationMessage ruleValidationMessage, EditedLotResponse editedLotResponse)> ValidateAndManipulate(LotRequest request, LotModel latestLotModel = null, string requestId = null, DateTime? timestamp = null)
+        public async Task<(RuleValidationMessage ruleValidationMessage, EditedLotResponse editedLotResponse)> ValidateAndManipulate(LotRequest request, ProductModel latestLotModel = null, string requestId = null, DateTime? timestamp = null)
         {
             string requestString = request.LotDetail.ToString();
-            (RuleValidationMessage ruleValidationMessage, LotDetail lotDetail) = await ValidateAndTransform(requestString, request.PlatformCode);
+            (RuleValidationMessage ruleValidationMessage, ProductDetail lotDetail) = await ValidateAndTransform(requestString, request.PlatformCode);
 
             (int _, EditedLotResponse editedLotResponse) = await ManipulateLotAsync(request, lotDetail, latestLotModel, requestId, timestamp);
             return (ruleValidationMessage, editedLotResponse);
         }
 
-        public async Task<(int, EditedLotResponse editedLotResponse)> ManipulateLotAsync(LotRequest request, LotDetail lotDetail, LotModel latestLotModel = null, string requestId = null, DateTime? timestamp = null)
+        public async Task<(int, EditedLotResponse editedLotResponse)> ManipulateLotAsync(LotRequest request, ProductDetail lotDetail, ProductModel latestLotModel = null, string requestId = null, DateTime? timestamp = null)
         {
             var existingLot = await GetAsync(lotDetail.AuctionId, lotDetail.LotId);
             int previousGoodStateSequenceNumber = existingLot.BiddingStates[^1].SequenceNumber;
@@ -165,7 +165,7 @@ namespace Product.Service
         {
             // request is the dynamic lot detail object
             string requestString = request.ToString();
-            (RuleValidationMessage ruleValidationMessage, LotDetail lotDetail) = await ValidateAndTransform(requestString);
+            (RuleValidationMessage ruleValidationMessage, ProductDetail lotDetail) = await ValidateAndTransform(requestString);
 
             return new LotResponse
             {
@@ -177,10 +177,10 @@ namespace Product.Service
             };
         }
 
-        private async Task<(object, LotDetail)> UpdateAsync(LotRequest request, CancellationToken cancellationToken)
+        private async Task<(object, ProductDetail)> UpdateAsync(LotRequest request, CancellationToken cancellationToken)
         {
             string requestString = request.LotDetail is null ? "{}" : request.LotDetail.ToString();
-            (RuleValidationMessage ruleValidationMessage, LotDetail lotDetail) = await ValidateAndTransform(requestString, request.PlatformCode);
+            (RuleValidationMessage ruleValidationMessage, ProductDetail lotDetail) = await ValidateAndTransform(requestString, request.PlatformCode);
 
             (int _, EditedLotResponse editedLotResponse) = await ManipulateLotAsync(request, lotDetail);
             await _lotDataAccess.UpsertAsync(editedLotResponse, cancellationToken);
@@ -192,7 +192,7 @@ namespace Product.Service
             return (editedLotResponse, editedLotResponse.LotDetail);
         }
 
-        public async Task<(RuleValidationMessage, LotDetail)> ValidateAndTransform(string request, string PlatformCode = "0", bool validateAuctionDetail = false)
+        public async Task<(RuleValidationMessage, ProductDetail)> ValidateAndTransform(string request, string PlatformCode = "0", bool validateAuctionDetail = false)
         {
             // If constructor throws error, it'll be handled by ExceptionMiddleware
             // request is the dynamic lot detail object

@@ -214,30 +214,5 @@
     "value": "ERROR_RETRACT_&_RECALCULATE_NO_ACTIVE_BIDS_ON_LOT",
     "description": "Retract & re-calculate cannot be performed when there are no active bids",
     "priority": 65
-  },
-  {
-    "code": 166,
-    "value": "ERROR_RETRACT_&_RECALCULATE_INACTIVE_LOT",
-    "description": "Retract & re-calculate cannot be performed on an inactive lot",
-    "priority": 64
-  },
-  {
-    "code": 167,
-    "value": "ERROR_RETRACT_&_RECALCULATE_NO_ACTIVE_BIDS_BY_BIDDER",
-    "description": "Retract & re-calculate cannot be performed when there are no active bids belonging to the requested bidder",
-    "priority": 66
-  },
-  {
-    "code": 168,
-    "value": "ERROR_AUCTIONHOUSE_ID_MISMATCH",
-    "description": "Auction House ID can not be edited on an existing Lot",
-    "priority": 6
-  },
-  {
-    "code": 169,
-    "value": "ERROR_CANNOT_REDUCE_MAX_BID",
-    "description": "This channel does not allow Lead Bidder to reduce their max bid",
-    "priority": 55
-  },
-  
+  }
 ]

@@ -64,10 +64,10 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12 mb-2" style="margin-top: 15px;">
+        <div class="col-md-12 mb-2" style="margin-top: 15px; margin-left: -425px;">
             <button type="button" class="btn btn-sm btn-primary" title="Submit lot" style="float: right;" id="btnSubmit">Submit</button>
             <button type="button" class="btn btn-sm btn-primary" title="Edit lot" style="float: right; margin-right: 5px" id="btnEdit">Edit</button>
-            <button type="button" class="btn btn-sm btn-primary" title="Get lot details" style="float: right; margin-right: 5px" id="btnGetLot">Get details</button>
+            <button type="button" class="btn btn-sm btn-primary" title="Verify" style="float: right; margin-right: 5px" id="btnVerify">Verify</button>
             <button type="button" class="btn btn-sm btn-danger" title="Delete lot" style="float: right; margin-right: 5px" id="btnDelete">
                 Delete
             </button>
@@ -81,282 +81,6 @@
     </div>
 
 }
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999999999;">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Lot Property Info</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="accordion" id="accordionDef1">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="acc1">
-                                        <button aria-controls="colps1" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps1" data-bs-toggle="collapse" type="button">
-                                            Auction house
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="acc1" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps1" style="">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition of Auction house.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="acc2">
-                                        <button aria-controls="colps2" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps2" data-bs-toggle="collapse" type="button">
-                                            Auction
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="acc2" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps2">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition of auction.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="acc3">
-                                        <button aria-controls="colps3" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps3" data-bs-toggle="collapse" type="button">
-                                            Lot
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="acc3" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps3">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition of lot.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="acc4">
-                                        <button aria-controls="colps4" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps4" data-bs-toggle="collapse" type="button">
-                                            Opening price
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="acc4" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps4" style="">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition for opening price.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="acc5">
-                                        <button aria-controls="colps5" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps5" data-bs-toggle="collapse" type="button">
-                                            Reserve price
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="acc5" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps5" style="">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition for Reserve price.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-md-6">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="acc6">
-                                        <button aria-controls="colps6" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps6" data-bs-toggle="collapse" type="button">
-                                            Quantity
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="acc6" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps6" style="">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition of Quantity.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div><div class="accordion-item">
-                                    <h2 class="accordion-header" id="acc7">
-                                        <button aria-controls="colps7" aria-expanded="true" class="accordion-button collapsed" data-bs-target="#colps7" data-bs-toggle="collapse" type="button">
-                                            Bidding type
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="acc7" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps7">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition of  Bidding type.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="acc8">
-                                        <button aria-controls="colps8" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps8" data-bs-toggle="collapse" type="button">
-                                            Reserve type
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="acc8" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps8">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition of Reserve type.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="acc9">
-                                        <button aria-controls="colps9" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps9" data-bs-toggle="collapse" type="button">
-                                            Increment type
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="acc9" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps9" style="">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition of Increment type.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="acc10">
-                                        <button aria-controls="colps10" aria-expanded="true" class="accordion-button collapsed" data-bs-target="#colps10" data-bs-toggle="collapse" type="button">
-                                            Buy it now
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="acc10" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps10">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition for Buy it now.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="col-md-12">&nbsp;</div>
-                            <div class="col-md-6">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="acc11">
-                                        <button aria-controls="colps11" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps11" data-bs-toggle="collapse" type="button">
-                                            Time zone
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="acc11" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps11">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition for Time zone.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div><div class="accordion-item">
-                                    <h2 class="accordion-header" id="acc12">
-                                        <button aria-controls="colps12" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps12" data-bs-toggle="collapse" type="button">
-                                            Extension time in seconds
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="acc12" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps12">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition of Extension time in seconds.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div><div class="accordion-item">
-                                    <h2 class="accordion-header" id="acc19">
-                                        <button aria-controls="colps19" aria-expanded="true" class="accordion-button collapsed" data-bs-target="#colps19" data-bs-toggle="collapse" type="button">
-                                            Currency
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="acc19" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps19">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition of Currency.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="acc20">
-                                        <button aria-controls="colps20" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps20" data-bs-toggle="collapse" type="button">
-                                            Piecemeal
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="acc20" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps20" style="">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition of Piecemeal.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="acc21">
-                                        <button aria-controls="colps21" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps21" data-bs-toggle="collapse" type="button">
-                                            Bidding suspended
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="acc21" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps21">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition of Bidding suspended.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div><div class="accordion-item">
-                                    <h2 class="accordion-header" id="acc22">
-                                        <button aria-controls="colps22" aria-expanded="true" class="accordion-button collapsed" data-bs-target="#colps22" data-bs-toggle="collapse" type="button">
-                                            Start time
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="acc22" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps22">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition for Start time.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div><div class="accordion-item">
-                                    <h2 class="accordion-header" id="23">
-                                        <button aria-controls="colps23" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps23" data-bs-toggle="collapse" type="button">
-                                            Ends from
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="23" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps23" style="">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition for Ends from.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div><div class="accordion-item">
-                                    <h2 class="accordion-header" id="acc24">
-                                        <button aria-controls="colps24" aria-expanded="false" class="accordion-button collapsed" data-bs-target="#colps24" data-bs-toggle="collapse" type="button">
-                                            Increment
-                                        </button>
-                                    </h2>
-                                    <div aria-labelledby="acc24" class="accordion-collapse collapse" data-bs-parent="#accordionDef1" id="colps24" style="">
-                                        <div class="accordion-body">
-                                            <strong>
-                                                Definition of Increment.
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
     let scntDiv = $('#p_scents');
@@ -422,7 +146,7 @@
                 dataType: 'json',
                 success: function (lotResponse) {
                     hideLoader();
-                    verifyAndCreateLotResponseHandling(lotResponse, "create");
+                    verifyAndCreateLotResponseHandling(lotResponse, "edit");
                 },
                 error: function (xhr) {
                     hideLoader();
@@ -642,6 +366,9 @@
                 }
                 else if (responseFrom === "create") {
                     lotResponseMsg.html("Lot created successfully. \n" + "<ul class='text-warning'>" + errorList + "</ul>");
+                }
+                else if (responseFrom === "edit") {
+                    lotResponseMsg.html("Lot edited successfully. \n" + "<ul class='text-warning'>" + errorList + "</ul>");
                 }
                 lotResponseMsg.removeClass("text-danger");
                 lotResponseMsg.addClass("text-success");

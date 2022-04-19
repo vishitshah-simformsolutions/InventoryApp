@@ -14,6 +14,6 @@ namespace Product.DataModel.Response
 
         public List<ValidationResult> ValidationResults { get; set; } = new List<ValidationResult>();
 
-        public LotDetail LotDetail { get; set; }
+        public ProductDetail LotDetail { get; set; }
     }
 }

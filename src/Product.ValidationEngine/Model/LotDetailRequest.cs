@@ -7,7 +7,7 @@ using Product.DataModel.Exceptions;
 
 namespace Product.ValidationEngine.Model
 {
-    public class LotDetailRequest : LotDetail
+    public class LotDetailRequest : ProductDetail
     {
         private static readonly int IsValidDataTypeStatusCode = 101;
 

@@ -68,13 +68,13 @@ namespace Product.DAL.Cosmos
         /// <param name="auctionId">Auction id</param>
         /// <param name="lotId">Lot id</param>
         /// <returns>Retrieved lot model</returns>
-        public async Task<LotModel> GetAsync(long auctionId, long lotId)
+        public async Task<ProductModel> GetAsync(long auctionId, long lotId)
         {
             try
             {
-                var lotModel = new LotModel();
+                var lotModel = new ProductModel();
                 var cosmosItemResponse = await _biddingContainer.ReadItemAsync<CosmosLotDocument>(lotId.ToString(), new PartitionKey(string.Concat(auctionId, "-", lotId)), cancellationToken: CancellationToken.None);
-                lotModel = JsonSerializer.Deserialize<LotModel>(await _compressHelper.Decompress(cosmosItemResponse.Resource.EncodedLotModel), JsonSerializerOption.CaseInsensitive);
+                lotModel = JsonSerializer.Deserialize<ProductModel>(await _compressHelper.Decompress(cosmosItemResponse.Resource.EncodedLotModel), JsonSerializerOption.CaseInsensitive);
                 lotModel.ETag = cosmosItemResponse.ETag;
 
                 return lotModel;
@@ -104,13 +104,13 @@ namespace Product.DAL.Cosmos
         /// <param name="auctionId">Auction id</param>
         /// <param name="lotId">Lot id</param>
         /// <returns>Retrieved lot model</returns>
-        public async Task<LotModel> GetByIdAsync(string documentId, long auctionId, long lotId)
+        public async Task<ProductModel> GetByIdAsync(string documentId, long auctionId, long lotId)
         {
             try
             {
-                var lotModel = new LotModel();
+                var lotModel = new ProductModel();
                 var cosmosItemResponse = await _biddingContainer.ReadItemAsync<CosmosLotDocument>(documentId, new PartitionKey(string.Concat(auctionId, "-", lotId)), cancellationToken: CancellationToken.None);
-                lotModel = JsonSerializer.Deserialize<LotModel>(await _compressHelper.Decompress(cosmosItemResponse.Resource.EncodedLotModel), JsonSerializerOption.CaseInsensitive);
+                lotModel = JsonSerializer.Deserialize<ProductModel>(await _compressHelper.Decompress(cosmosItemResponse.Resource.EncodedLotModel), JsonSerializerOption.CaseInsensitive);
                 lotModel.ETag = cosmosItemResponse.ETag;
 
                 return lotModel;
@@ -138,7 +138,7 @@ namespace Product.DAL.Cosmos
         /// </summary>
         /// <param name="lotModel">Lot Model</param>
         /// <param name="cancellationToken">CancellationToken</param>
-        public async Task CreateAsync(LotModel lotModel, CancellationToken cancellationToken)
+        public async Task CreateAsync(ProductModel lotModel, CancellationToken cancellationToken)
         {
             var document = new CosmosLotDocument
             {
@@ -292,7 +292,7 @@ namespace Product.DAL.Cosmos
         /// <param name="isRetraction"></param>
         /// <param name="documentId"></param>
         /// <returns></returns>
-        public async Task<string> UpsertAsync(LotModel lotModel, CancellationToken cancellationToken, bool isRetraction = false, string documentId = "")
+        public async Task<string> UpsertAsync(ProductModel lotModel, CancellationToken cancellationToken, bool isRetraction = false, string documentId = "")
         {
             string id = isRetraction ? documentId : lotModel.LotDetail.LotId.ToString();
 

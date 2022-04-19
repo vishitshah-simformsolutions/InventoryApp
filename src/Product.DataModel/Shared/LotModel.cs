@@ -4,9 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace Product.DataModel.Shared
 {
-    public class LotModel
+    public class ProductModel
     {
-        public LotDetail LotDetail { get; set; }
+        public ProductDetail LotDetail { get; set; }
         public List<BiddingState> BiddingStates { get; set; }
         [JsonIgnore]
         public string ETag { get; set; }
@@ -14,7 +14,6 @@ namespace Product.DataModel.Shared
 
     public struct SchemaTypes
     {
-        public const string CreateLot = "CreateLot";
         public const string EditLot = "EditLot";
     }
 
@@ -24,7 +23,7 @@ namespace Product.DataModel.Shared
         public decimal? High { get; set; }
         public decimal? IncrementValue { get; set; }
     }
-    public class LotDetail
+    public class ProductDetail
     {
         public long AuctionId { get; set; }
         public long LotId { get; set; }

@@ -20,7 +20,7 @@ namespace Product.ValidationEngine.Model
         #region Properties
 
         public Config Config { get; }
-        public LotDetail LotDetail { get; }
+        public ProductDetail LotDetail { get; }
         public bool ValidateAuctionDetail { get; }
 
         private RuleValidationMessage _ruleValidationMessage;

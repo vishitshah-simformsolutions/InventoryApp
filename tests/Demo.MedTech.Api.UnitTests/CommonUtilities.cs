@@ -9,11 +9,11 @@ namespace Product.UnitTests
 {
     public static class CommonUtilities
     {
-        public static LotModel CreateLot()
+        public static ProductModel CreateLot()
         {
-            return new LotModel
+            return new ProductModel
             {
-                LotDetail = new LotDetail
+                LotDetail = new ProductDetail
                 {
                     AuctionId = 1,
                     LotId = 1,
@@ -104,7 +104,7 @@ namespace Product.UnitTests
             return amount;
         }
      
-        public static LotDetail CreateLotDetail(long AuctionId,
+        public static ProductDetail CreateLotDetail(long AuctionId,
             long LotId,
             decimal openingPrice,
             decimal? buyItNow,
@@ -117,7 +117,7 @@ namespace Product.UnitTests
             DateTime endsFrom = default
         )
         {
-            return new LotDetail()
+            return new ProductDetail()
             {
                 AuctionId = AuctionId,
                 LotId = LotId,
@@ -136,7 +136,7 @@ namespace Product.UnitTests
             };
         }
 
-        public static CreateLotRequestModelTest CreateRequestModel(LotDetail lotDetail)
+        public static CreateLotRequestModelTest CreateRequestModel(ProductDetail lotDetail)
         {
             return new CreateLotRequestModelTest
             {
@@ -148,7 +148,7 @@ namespace Product.UnitTests
 
     public class CreateLotRequestModelTest
     {
-        public LotDetail LotDetail { get; set; }
+        public ProductDetail LotDetail { get; set; }
     }
     public class DateTimeConverter : JsonConverter<DateTime>
     {

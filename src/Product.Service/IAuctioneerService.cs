@@ -19,7 +19,7 @@ namespace Product.Service
 
         Task DeleteByPartitionKeyWithRetryAsync(long AuctionId, long LotId, CancellationToken cancellationToken);
 
-        Task<(object,LotDetail)> UpdateWithRetryAsync(LotRequest request, CancellationToken cancellationToken);
+        Task<(object,ProductDetail)> UpdateWithRetryAsync(LotRequest request, CancellationToken cancellationToken);
 
         Task<LotResponse> ValidateAndTransformLotDetail(dynamic request);
     }

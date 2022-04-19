@@ -15,9 +15,9 @@ namespace Product.Utility
                 StringComparison.OrdinalIgnoreCase) == 0);
         }
        
-        public static LotModel AddDefaultState(dynamic lotDetail, LotModel lotModel, string correlationId)
+        public static ProductModel AddDefaultState(dynamic lotDetail, ProductModel lotModel, string correlationId)
         {
-            return new LotModel
+            return new ProductModel
             {
                 LotDetail = lotModel.LotDetail,
                 BiddingStates = new List<BiddingState>

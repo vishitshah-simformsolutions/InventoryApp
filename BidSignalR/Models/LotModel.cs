@@ -2,7 +2,7 @@
 
 namespace Playground.Models
 {
-    public class EgressLotModel: LotModel
+    public class EgressLotModel: ProductModel
     {
         public string Domain { get; set; } = "SBS";
         public string SubDomain { get; set; }

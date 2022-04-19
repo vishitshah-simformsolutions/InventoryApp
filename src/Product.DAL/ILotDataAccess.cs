@@ -6,16 +6,16 @@ namespace Product.DAL
 {
     public interface ILotDataAccess
     {
-        Task<LotModel> GetAsync(long AuctionId, long LotId);
+        Task<ProductModel> GetAsync(long AuctionId, long LotId);
 
-        Task CreateAsync(LotModel lotModel, CancellationToken cancellationToken);
+        Task CreateAsync(ProductModel lotModel, CancellationToken cancellationToken);
 
         Task DeleteAsync(long AuctionId, long LotId, CancellationToken cancellationToken);
 
-        Task<LotModel> GetByIdAsync(string documentId, long AuctionId, long LotId);
+        Task<ProductModel> GetByIdAsync(string documentId, long AuctionId, long LotId);
 
         Task DeleteByPartitionKeyAsync(long AuctionId, long LotId, CancellationToken cancellationToken);
 
-        Task<string> UpsertAsync(LotModel lotModel, CancellationToken cancellationToken, bool isRetraction = false, string documentId = "");
+        Task<string> UpsertAsync(ProductModel lotModel, CancellationToken cancellationToken, bool isRetraction = false, string documentId = "");
     }
 }

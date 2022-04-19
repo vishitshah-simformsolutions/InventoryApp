@@ -4,7 +4,7 @@ using Product.DataModel.Shared;
 
 namespace Product.DataModel.Response
 {
-    public class EditedLotResponse : LotModel, IResponse, IRuleValidationMessage
+    public class EditedLotResponse : ProductModel, IResponse, IRuleValidationMessage
     {
         public DateTime TimeStamp { get; set; }
         public string RequestId { get; set; }

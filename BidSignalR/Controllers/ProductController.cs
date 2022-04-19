@@ -7,12 +7,13 @@ using Playground.Policies;
 using Playground.Services.IServices;
 using RestSharp;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 
 namespace Playground.Controllers
 {
-    public class EgressLotDetail : LotDetail
+    public class EgressLotDetail : ProductDetail
     {
         public bool EgressIsPiecemeal
         {
@@ -43,6 +44,14 @@ namespace Playground.Controllers
         [HttpPost]
         public ActionResult VerifyLot(EgressLotDetail lotDetails)
         {
+            lotDetails.Increment = new List<Increment>();
+            var increment = new Increment
+            {
+                Low = 0,
+                High = null,
+                IncrementValue = 10
+            };
+            lotDetails.Increment.Add(increment);
             var request = new RestRequest(Method.POST);
             request.AddHeader("Content-Type", "application/json");
             request.AddParameter("application/json", JsonSerializer.Serialize(lotDetails), ParameterType.RequestBody);
@@ -54,6 +63,14 @@ namespace Playground.Controllers
         [HttpPost]
         public ActionResult CreateLot(EgressLotDetail lotDetails)
         {
+            lotDetails.Increment = new List<Increment>();
+            var increment = new Increment
+            {
+                Low = 0,
+                High = null,
+                IncrementValue = 10
+            };
+            lotDetails.Increment.Add(increment);
             var request = new RestRequest(Method.POST);
             StringBuilder correlation = new StringBuilder();
 
@@ -76,6 +93,14 @@ namespace Playground.Controllers
         [HttpPut]
         public ActionResult UpdateLot(EgressLotDetail lotDetails)
         {
+            lotDetails.Increment = new List<Increment>();
+            var increment = new Increment
+            {
+                Low = 0,
+                High = null,
+                IncrementValue = 10
+            };
+            lotDetails.Increment.Add(increment);
             var request = new RestRequest(Method.POST);
             StringBuilder correlation = new StringBuilder();
 
@@ -90,19 +115,7 @@ namespace Playground.Controllers
                 ParameterType.RequestBody);
 
             IRestResponse response = _restClientApiCall.Execute(request, _configuration["INGRESS_API"] + _configuration["LOT_UPDATE_DETAILS_ENDPOINT"]);
-
-            //if (response.StatusCode == HttpStatusCode.OK)
-            //{
-            //    var policy = RetryPolicy.GetCosmosAsyncPolicy(_cosmosPollySettings.RetryTimeInSeconds, _cosmosPollySettings.RetryCount, _cosmosPollySettings.TimeoutPeriodInSeconds);
-            //    _ = Task.Run(async () =>
-            //    {
-            //        await policy.ExecuteAsync(async (ct) =>
-            //        {
-            //            await _cosmosRepo.ResetLotAsync(lotDetails.AuctionId, lotDetails.LotId);
-            //        }, new CancellationToken());
-            //    }).ConfigureAwait(false);
-            //}
-
+            
             return Ok(response.Content == "" ? response?.ErrorException?.Message : response.Content);
         }
 
@@ -132,7 +145,7 @@ namespace Playground.Controllers
             return Ok(response.Content);
         }
 
-        private EgressLotModel CreateLotObj(LotDetail lotDetails)
+        private EgressLotModel CreateLotObj(ProductDetail lotDetails)
         {
             return new EgressLotModel()
             {

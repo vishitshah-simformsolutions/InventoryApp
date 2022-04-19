@@ -53,7 +53,7 @@ namespace Product.Api.UnitTests
         [Theory]
         [MemberData(nameof(CreateLotTestData))]
         public void Given_valid_lot_is_passed_and_lot_already_exists_When_CreateAsync_is_called_Then_lot_should_not_be_created_and_lot_exists_validation_should_be_in_validation_results
-           (LotDetail lotDetail)
+           (ProductDetail lotDetail)
         {
             //Arrange
             var lotRequest = CommonUtilities.CreateRequestModel(lotDetail);
@@ -72,7 +72,7 @@ namespace Product.Api.UnitTests
                 {"LotId",lotDetail.LotId},
             };
             validationResult[0].Data = dictionarySuggestion;
-            mockLotDataAccess.Setup(x => x.CreateAsync(It.IsAny<LotModel>(), It.IsAny<CancellationToken>())).ThrowsAsync(new RuleEngineException(new RuleValidationMessage { IsValid = false, ValidationResults = validationResult }, new Exception("Rule engine exception")));
+            mockLotDataAccess.Setup(x => x.CreateAsync(It.IsAny<ProductModel>(), It.IsAny<CancellationToken>())).ThrowsAsync(new RuleEngineException(new RuleValidationMessage { IsValid = false, ValidationResults = validationResult }, new Exception("Rule engine exception")));
             var auctioneerService = CreateAuctioneerService(mockLotDataAccess);
 
             //Act
@@ -84,7 +84,7 @@ namespace Product.Api.UnitTests
             Assert.Equal(Response.ValidationResults.FirstOrDefault(x => x.Code == lotAlreadyExistsCode)?.Value, ruleValidationMessage?.Value);
             Assert.Equal(Response.ValidationResults.FirstOrDefault(x => x.Code == lotAlreadyExistsCode)?.Description, ruleValidationMessage?.Description);
             Assert.Equal(dictionarySuggestion, ruleValidationMessage?.Data);
-            mockLotDataAccess.Verify(x => x.CreateAsync(It.IsAny<LotModel>(), It.IsAny<CancellationToken>()), Times.Once);
+            mockLotDataAccess.Verify(x => x.CreateAsync(It.IsAny<ProductModel>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [Fact]

@@ -102,7 +102,7 @@ namespace Product.Api.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> UpdateLot([FromBody] LotRequest request, CancellationToken cancellationToken)
         {
-            (object editedLotResponse,LotDetail lotDetail) = await _auctioneerService.UpdateWithRetryAsync(request, cancellationToken);
+            (object editedLotResponse,ProductDetail lotDetail) = await _auctioneerService.UpdateWithRetryAsync(request, cancellationToken);
 
          
 
