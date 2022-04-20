@@ -8,7 +8,7 @@ using Product.ValidationEngine.Rules;
 using Product.ValidationEngine.Rules.Product.Atomic;
 using Xunit;
 
-namespace Product.Api.UnitTests.Auctioneer.Atomic
+namespace Product.Api.UnitTests.Product.Atomic
 {
     public class HasValidProductTests
     {

@@ -123,7 +123,7 @@ namespace Product.Service
 
         #endregion
 
-        #region Auctioneer Activity
+        #region Product Activity
         public async Task<(object, ProductDetail)> UpdateWithRetryAsync(ProductRequest request, CancellationToken cancellationToken)
         {
             return await UpdateAsync(request, cancellationToken);
@@ -155,7 +155,7 @@ namespace Product.Service
             return (0, editedProductResponse);
         }
 
-        public async Task<ProductResponse> ValidateAndTransformLotDetail(dynamic request)
+        public async Task<ProductResponse> ValidateProductDetail(dynamic request)
         {
             // request is the dynamic lot detail object
             string requestString = request.ToString();

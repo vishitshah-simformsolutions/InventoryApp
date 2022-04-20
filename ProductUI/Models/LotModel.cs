@@ -2,11 +2,11 @@
 
 namespace Playground.Models
 {
-    public class EgressLotModel: ProductModel
+    public class ProductResponseModel: ProductModel
     {
         public string Domain { get; set; }
         public string SubDomain { get; set; }
-        public long AuctionId { get; set; }
+        public long ProductId { get; set; }
         public long LotId { get; set; }
     }
 }

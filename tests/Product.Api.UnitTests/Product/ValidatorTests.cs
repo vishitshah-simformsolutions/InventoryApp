@@ -7,7 +7,7 @@ using Product.ValidationEngine.Model;
 using Product.ValidationEngine.Rules;
 using Xunit;
 
-namespace Product.Api.UnitTests.Auctioneer
+namespace Product.Api.UnitTests.Product
 {
     public class ValidatorTests
     {

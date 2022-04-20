@@ -1,10 +1,10 @@
 {
   "domain_name": "GAPShared",
-  "service_name": "SBS.Auctioneer",
-  "platform": "MedTech",
+  "service_name": "SBS.Product",
+  "platform": "ProductUI",
   "service_details": [
     {
-      "service_description": "SBS Auctioneer apis",
+      "service_description": "SBS Product apis",
       "service_access_type": "public",
       "service_protocol_type": "https",
       "authentication_type": "bearer",

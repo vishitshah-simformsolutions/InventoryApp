@@ -21,6 +21,6 @@ namespace Product.Service
 
         Task<(object,ProductDetail)> UpdateWithRetryAsync(ProductRequest request, CancellationToken cancellationToken);
 
-        Task<ProductResponse> ValidateAndTransformLotDetail(dynamic request);
+        Task<ProductResponse> ValidateProductDetail(dynamic request);
     }
 }

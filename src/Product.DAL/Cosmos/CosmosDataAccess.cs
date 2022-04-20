@@ -261,8 +261,8 @@ namespace Product.DAL.Cosmos
                 do
                 {
                     var sprocResponse = await _biddingContainer.Scripts.ExecuteStoredProcedureAsync<ResponseBody>(
-                        storedProcedureId, new PartitionKey(string.Concat(auctionId, "-", lotId)),
-                        new string[] { "SELECT c._self FROM c WHERE c.PartitionKey = '" + string.Concat(auctionId, "-", lotId) + "'" }, cancellationToken: cancellationToken);
+                        storedProcedureId, new PartitionKey(string.Concat(lotId, "-", auctionId)),
+                        new string[] { "SELECT c._self FROM c WHERE c.PartitionKey = '" + string.Concat(lotId, "-", auctionId) + "'" }, cancellationToken: cancellationToken);
                     responseBody = sprocResponse.Resource;
                 } while (responseBody.Continuation);
             }

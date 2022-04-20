@@ -1,4 +1,4 @@
-﻿@model Playground.Controllers.EgressLotDetail
+﻿@model Product.DataModel.Shared.ProductDetail
 
 @{
     ViewData["Title"] = "Create Lot";
@@ -210,70 +210,23 @@
             a.click();
         });
 
-        $('#btnGetLot').click(function() {
-            let AuctionId = Number($("#AuctionId").val());
-            let lotId = Number($("#LotId").val());
-            var errorList = "";
-            if (AuctionId > 0 && lotId > 0) {
-                showLoader();
-
-                $.ajax({
-                    url: '@Url.Action("LotDetails", "Marketplace")',
-                    type: "POST",
-                    data: { auctionid: AuctionId, lotId: lotId },
-                    dataType: 'json',
-                    success: function (lotResponse) {
-                        hideLoader();
-                        if (lotResponse != null && lotResponse.isValid === false && lotResponse.validationResults != null && lotResponse.validationResults.length > 0) {
-                            lotResponseMsg.show();
-                            $.each(lotResponse.validationResults,
-                                function(index, val) {
-                                    errorList += "<li>" + val.description + "</li>";
-                                });
-
-                            lotResponseMsg.html("<ul>" + errorList + "</ul>");
-                            lotResponseMsg.removeClass("text-success");
-                            lotResponseMsg.addClass("text-danger");
-                        }
-                        else
-                        {
-                            if (lotResponse.isValid) {
-                                lotResponseMsg.hide();
-                                bidLotDetails(lotResponse.lotDetail);
-                            }
-                            else {
-                                lotResponseMsg.show();
-                                lotResponseMsg.html(lotResponse.message);
-                                lotResponseMsg.addClass("text-danger");
-                            }
-                        }
-                    },
-                    error: function (xhr) {
-                        hideLoader();
-                        lotResponseMsg.html("Service Unavailable.");
-                        lotResponseMsg.addClass("text-danger");
-                        console.log('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
-                    }
-                });
-            }
-        });
-
-        $('#btnClear').click(function() {
+      $('#btnClear').click(function() {
             $('form#frmLot input').attr('value', '');
             $('#p_scents tr:gt(0)').remove();
             $('#p_scents tr:first input').attr('value', '0');
         });
 
         $('#btnDelete').click(function () {
-            let AuctionId = Number($("#AuctionId").val());
-            let LotId = Number($("#LotId").val());
+            let ItemId = Number($("#ItemId").val());
+            let ProductId = Number($("#ProductId").val());
             var errorList = "";
             showLoader();
 
             $.ajax({
                 url: '@Url.Action("DeleteLot")',
+                url: '@Url.Action("DeleteLot")',
                 type: "DELETE",
-                data: { auctionid: AuctionId, lotid: LotId },
+                data: { itemId: ItemId, productId: ProductId },
                 dataType: 'json',
                 success: function (lotResponse) {
                     hideLoader();
@@ -292,7 +245,7 @@
                     {
                         if (lotResponse.isValid) {
                             lotResponseMsg.show();
-                            lotResponseMsg.html("Lot deleted successfully.");
+                            lotResponseMsg.html("Product deleted successfully.");
                             lotResponseMsg.addClass("text-success");
                             $('#btnClear').click();
                         }
@@ -317,13 +270,9 @@
     $('#EndsFrom').val(endDate.toISOString().slice(0, 19));
 
     function getSerializeForm() {
-        debugger;
         let formAllElements = $('form#frmLot').serializeArray();
         var serializedForm = formAllElements.filter(function(obj) {
-            if (obj.name.includes('increment[') || obj.name.includes('EgressIsPiecemeal') || obj.name.includes('BiddingSuspended')) {
-                return false;
-            }
-            return true;
+           return true;
         });
 
         let incrementRows = $('#p_scents tr');
@@ -364,13 +313,13 @@
                     });
                 lotResponseMsg.show();
                 if (responseFrom === "verify") {
-                    lotResponseMsg.html("Lot details are valid. Please click submit to create lot. \n" + "<ul class='text-warning'>" + errorList + "</ul>");
+                    lotResponseMsg.html("Product details are valid. Please click submit to create lot. \n" + "<ul class='text-warning'>" + errorList + "</ul>");
                 }
                 else if (responseFrom === "create") {
-                    lotResponseMsg.html("Lot created successfully. \n" + "<ul class='text-warning'>" + errorList + "</ul>");
+                    lotResponseMsg.html("Product created successfully. \n" + "<ul class='text-warning'>" + errorList + "</ul>");
                 }
                 else if (responseFrom === "edit") {
-                    lotResponseMsg.html("Lot edited successfully. \n" + "<ul class='text-warning'>" + errorList + "</ul>");
+                    lotResponseMsg.html("Product edited successfully. \n" + "<ul class='text-warning'>" + errorList + "</ul>");
                 }
                 lotResponseMsg.removeClass("text-danger");
                 lotResponseMsg.addClass("text-success");

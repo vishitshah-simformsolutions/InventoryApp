@@ -73,10 +73,10 @@ namespace Product.Api.UnitTests
             };
             validationResult[0].Data = dictionarySuggestion;
             mockLotDataAccess.Setup(x => x.CreateAsync(It.IsAny<ProductModel>(), It.IsAny<CancellationToken>())).ThrowsAsync(new RuleEngineException(new RuleValidationMessage { IsValid = false, ValidationResults = validationResult }, new Exception("Rule engine exception")));
-            var auctioneerService = CreateProductService(mockLotDataAccess);
+            var productService = CreateProductService(mockLotDataAccess);
 
             //Act
-            var caughtException = Assert.ThrowsAsync<RuleEngineException>(async () => await auctioneerService.InsertWithRetryAsync(requestString, new CancellationToken()));
+            var caughtException = Assert.ThrowsAsync<RuleEngineException>(async () => await productService.InsertWithRetryAsync(requestString, new CancellationToken()));
             var ruleValidationMessage = caughtException.Result.RuleValidationMessage.ValidationResults.FirstOrDefault();
 
             //Assert
@@ -104,10 +104,10 @@ namespace Product.Api.UnitTests
             };
             validationResult[0].Data = dictionarySuggestion;
             mockLotDataAccess.Setup(x => x.GetAsync(It.IsAny<long>(), It.IsAny<long>())).ThrowsAsync(new RuleEngineException(new RuleValidationMessage { IsValid = false, ValidationResults = validationResult }, new Exception("Rule engine exception")));
-            var auctioneerService = CreateProductService(mockLotDataAccess);
+            var productService = CreateProductService(mockLotDataAccess);
 
             //Act
-            var caughtException = Assert.ThrowsAsync<RuleEngineException>(async () => await auctioneerService.GetAsync(AuctionId, LotId));
+            var caughtException = Assert.ThrowsAsync<RuleEngineException>(async () => await productService.GetAsync(AuctionId, LotId));
             var ruleValidationMessage = caughtException.Result.RuleValidationMessage.ValidationResults.FirstOrDefault();
 
             //Assert
@@ -127,10 +127,10 @@ namespace Product.Api.UnitTests
             long LotId = 1;
             var mockLotDataAccess = new Mock<ILotDataAccess>();
             mockLotDataAccess.Setup(x => x.GetAsync(It.IsAny<long>(), It.IsAny<long>())).ReturnsAsync(new EditedProductResponse());
-            var auctioneerService = CreateProductService(mockLotDataAccess);
+            var productService = CreateProductService(mockLotDataAccess);
 
             //Act
-            var getResponse = await auctioneerService.GetAsync(AuctionId, LotId);
+            var getResponse = await productService.GetAsync(AuctionId, LotId);
 
             //Assert
             Assert.NotNull(getResponse);
@@ -154,10 +154,10 @@ namespace Product.Api.UnitTests
             };
             validationResult[0].Data = dictionarySuggestion;
             mockLotDataAccess.Setup(x => x.DeleteAsync(It.IsAny<long>(), It.IsAny<long>(), It.IsAny<CancellationToken>())).ThrowsAsync(new RuleEngineException(new RuleValidationMessage { IsValid = false, ValidationResults = validationResult }, new Exception("Rule engine exception")));
-            var auctioneerService = CreateProductService(mockLotDataAccess);
+            var productService = CreateProductService(mockLotDataAccess);
 
             //Act
-            var caughtException = Assert.ThrowsAsync<RuleEngineException>(async () => await auctioneerService.DeleteWithRetryAsync(AuctionId, LotId, new CancellationToken()));
+            var caughtException = Assert.ThrowsAsync<RuleEngineException>(async () => await productService.DeleteWithRetryAsync(AuctionId, LotId, new CancellationToken()));
             var ruleValidationMessage = caughtException.Result.RuleValidationMessage.ValidationResults.FirstOrDefault();
 
             //Assert
@@ -177,10 +177,10 @@ namespace Product.Api.UnitTests
             long LotId = 1;
             var mockLotDataAccess = new Mock<ILotDataAccess>();
             mockLotDataAccess.Setup(x => x.DeleteAsync(It.IsAny<long>(), It.IsAny<long>(), It.IsAny<CancellationToken>()));
-            var auctioneerService = CreateProductService(mockLotDataAccess);
+            var productService = CreateProductService(mockLotDataAccess);
 
             //Act
-            await auctioneerService.DeleteWithRetryAsync(AuctionId, LotId, new CancellationToken());
+            await productService.DeleteWithRetryAsync(AuctionId, LotId, new CancellationToken());
 
             //Assert
             mockLotDataAccess.Verify(x => x.DeleteAsync(It.IsAny<long>(), It.IsAny<long>(), It.IsAny<CancellationToken>()), Times.Once);

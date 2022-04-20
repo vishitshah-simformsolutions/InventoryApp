@@ -8,7 +8,7 @@ using Product.ValidationEngine.Rules;
 using Product.ValidationEngine.Rules.Product.Atomic;
 using Xunit;
 
-namespace Product.Api.UnitTests.Auctioneer.Atomic
+namespace Product.Api.UnitTests.Product.Atomic
 {
     public class HasValidQuantityTests
     {
@@ -33,10 +33,10 @@ namespace Product.Api.UnitTests.Auctioneer.Atomic
         [InlineData(1, 1, 20, 200, 5, "IST", 0)]
         [InlineData(1, 1, 20, 200, 5.5, "IST", 0)]
         [InlineData(1, 1, 20, 200, 100, "IST", 0)]
-        public void Given_valid_quantity_is_passed_When_has_valid_quantity_executed_Then_should_not_return_validation_error(long AuctionId, long LotId, decimal openingPrice, decimal buyItNow, decimal quantity, string timeZone, int extensionTimeInSeconds)
+        public void Given_valid_quantity_is_passed_When_has_valid_quantity_executed_Then_should_not_return_validation_error(long ProductId, long ItemId, decimal openingPrice, decimal buyItNow, decimal quantity, string timeZone, int extensionTimeInSeconds)
         {
             //Arrange
-            var productContext = new ProductContext(CommonUtilities.CreateProductDetailString(AuctionId, LotId, openingPrice, buyItNow, quantity, timeZone, extensionTimeInSeconds),_requestPipe, _rules, _transformRules);
+            var productContext = new ProductContext(CommonUtilities.CreateProductDetailString(ProductId, ItemId, openingPrice, buyItNow, quantity, timeZone, extensionTimeInSeconds),_requestPipe, _rules, _transformRules);
 
             //Act
             var hasValidQuantity = new HasValidQuantity();
@@ -48,10 +48,10 @@ namespace Product.Api.UnitTests.Auctioneer.Atomic
 
         [Theory]
         [InlineData(1, 1, 20, 200, null, "IST", 0)]
-        public void Given_null_is_passed_in_quantity_When_has_valid_quantity_executed_Then_should_not_return_validation_error(long AuctionId, long LotId, decimal openingPrice, decimal buyItNow, decimal? quantity, string timeZone, int extensionTimeInSeconds)
+        public void Given_null_is_passed_in_quantity_When_has_valid_quantity_executed_Then_should_not_return_validation_error(long ProductId, long ItemId, decimal openingPrice, decimal buyItNow, decimal? quantity, string timeZone, int extensionTimeInSeconds)
         {
             //Arrange
-            var productContext = new ProductContext(CommonUtilities.CreateProductDetailString(AuctionId, LotId, openingPrice, buyItNow, quantity, timeZone, extensionTimeInSeconds), _requestPipe, _rules, _transformRules);
+            var productContext = new ProductContext(CommonUtilities.CreateProductDetailString(ProductId, ItemId, openingPrice, buyItNow, quantity, timeZone, extensionTimeInSeconds), _requestPipe, _rules, _transformRules);
 
             //Act
             var hasValidQuantity = new HasValidQuantity();
@@ -63,10 +63,10 @@ namespace Product.Api.UnitTests.Auctioneer.Atomic
 
         [Theory]
         [InlineData(1, 1, 20, 200, -5, "IST", 0)]
-        public void Given_invalid_quantity_is_passed_When_has_valid_quantity_executed_Then_should_return_validation_error(long AuctionId, long LotId, decimal openingPrice, decimal buyItNow, decimal quantity, string timeZone, int extensionTimeInSeconds)
+        public void Given_invalid_quantity_is_passed_When_has_valid_quantity_executed_Then_should_return_validation_error(long ProductId, long ItemId, decimal openingPrice, decimal buyItNow, decimal quantity, string timeZone, int extensionTimeInSeconds)
         {
             //Arrange
-            var productContext = new ProductContext(CommonUtilities.CreateProductDetailString(AuctionId, LotId, openingPrice, buyItNow, quantity, timeZone, extensionTimeInSeconds), _requestPipe, _rules, _transformRules);
+            var productContext = new ProductContext(CommonUtilities.CreateProductDetailString(ProductId, ItemId, openingPrice, buyItNow, quantity, timeZone, extensionTimeInSeconds), _requestPipe, _rules, _transformRules);
 
             //Act
             var hasValidQuantity = new HasValidQuantity();

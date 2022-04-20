@@ -13,16 +13,7 @@ using System.Text.Json;
 
 namespace Playground.Controllers
 {
-    public class EgressLotDetail : ProductDetail
-    {
-        public bool EgressIsPiecemeal
-        {
-            get => false;
-            set {; }
-        }
-    }
-
-    public class ProductController : Controller
+   public class ProductController : Controller
     {
         private readonly IRestClientApiCall _restClientApiCall;
         private static IConfiguration _configuration;
@@ -42,7 +33,7 @@ namespace Playground.Controllers
         }
 
         [HttpPost]
-        public ActionResult VerifyLot(EgressLotDetail lotDetails)
+        public ActionResult VerifyLot(ProductDetail lotDetails)
         {
             lotDetails.Increment = new List<Increment>();
             var increment = new Increment
@@ -61,7 +52,7 @@ namespace Playground.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateLot(EgressLotDetail lotDetails)
+        public ActionResult CreateLot(ProductDetail lotDetails)
         {
             lotDetails.Increment = new List<Increment>();
             var increment = new Increment
@@ -81,17 +72,17 @@ namespace Playground.Controllers
             .ToString();
 
             request.AddHeader("x-correlation-id", correlationId);
-            request.AddParameter("application/json", JsonSerializer.Serialize(CreateLotObj(lotDetails)),
+            request.AddParameter("application/json", JsonSerializer.Serialize(CreateProductObj(lotDetails)),
                 ParameterType.RequestBody);
 
             IRestResponse response = _restClientApiCall.Execute(request, _configuration["API"] + _configuration["PRODUCT_DETAILS_ENDPOINT"]);
 
-            
+
             return Ok(response.Content == "" ? response?.ErrorException?.Message : response.Content);
         }
 
         [HttpPut]
-        public ActionResult UpdateLot(EgressLotDetail lotDetails)
+        public ActionResult UpdateLot(ProductDetail lotDetails)
         {
             lotDetails.Increment = new List<Increment>();
             var increment = new Increment
@@ -111,18 +102,18 @@ namespace Playground.Controllers
                 .ToString();
 
             request.AddHeader("x-correlation-id", correlationId);
-            request.AddParameter("application/json", JsonSerializer.Serialize(CreateLotObj(lotDetails)),
+            request.AddParameter("application/json", JsonSerializer.Serialize(CreateProductObj(lotDetails)),
                 ParameterType.RequestBody);
 
             IRestResponse response = _restClientApiCall.Execute(request, _configuration["API"] + _configuration["LOT_UPDATE_DETAILS_ENDPOINT"]);
-            
+
             return Ok(response.Content == "" ? response?.ErrorException?.Message : response.Content);
         }
 
         [HttpDelete]
-        public ActionResult DeleteLot(long auctionId, long lotId)
+        public ActionResult DeleteLot(long itemId, long productId)
         {
-            string url = _configuration["API"] + _configuration["DELETE_PRODUCT_ENDPOINT"] + $"?auctionId={auctionId}&lotId={lotId}";
+            string url = _configuration["API"] + _configuration["DELETE_PRODUCT_ENDPOINT"] + $"?itemId={itemId}&productId={productId}";
             var request = new RestRequest(Method.DELETE);
             StringBuilder correlation = new StringBuilder();
 
@@ -136,7 +127,7 @@ namespace Playground.Controllers
             request.AddHeader("x-correlation-id", correlationId);
 
             IRestResponse response = _restClientApiCall.Execute(request, url);
-            
+
             if (response.Content == "")
             {
                 response.Content = "{\"isValid\":true,\"validationResults\":[]}";
@@ -145,14 +136,14 @@ namespace Playground.Controllers
             return Ok(response.Content);
         }
 
-        private EgressLotModel CreateLotObj(ProductDetail lotDetails)
+        private ProductResponseModel CreateProductObj(ProductDetail lotDetails)
         {
-            return new EgressLotModel()
+            return new ProductResponseModel()
             {
                 Domain = "SBS",
-                SubDomain = "Auctioneer",
+                SubDomain = "Product",
                 LotId = lotDetails.ItemId,
-                AuctionId = lotDetails.ProductId,
+                ProductId = lotDetails.ProductId,
                 ProductDetail = lotDetails,
             };
         }

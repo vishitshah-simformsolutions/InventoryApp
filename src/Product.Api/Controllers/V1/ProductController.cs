@@ -65,16 +65,16 @@ namespace Product.Api.Controllers.V1
         [HttpDelete]
         [Route("productbypartitionkey")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult> DeleteByPartitionKey(long auctionId, long lotId, CancellationToken cancellationToken)
+        public async Task<ActionResult> DeleteByPartitionKey(long itemId, long productId, CancellationToken cancellationToken)
         {
-            await _productService.DeleteByPartitionKeyWithRetryAsync(auctionId, lotId, cancellationToken);
+            await _productService.DeleteByPartitionKeyWithRetryAsync(itemId, productId, cancellationToken);
 
-           
+
 
             return Ok();
         }
 
-        
+
         /// <summary>
         /// Validate and transform ProductDetail API
         /// </summary>
@@ -84,27 +84,26 @@ namespace Product.Api.Controllers.V1
         [Route("validateproductdetail")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> ValidateAndTransformLotDetail([FromBody] dynamic request)
+        public async Task<ActionResult> ValidateProductDetail([FromBody] dynamic request)
         {
-            ProductResponse productResponse = await _productService.ValidateAndTransformLotDetail(request);
+            ProductResponse productResponse = await _productService.ValidateProductDetail(request);
             return Ok(productResponse);
         }
 
         /// <summary>
         /// Edit Lot API
         /// </summary>
-        /// <param name="request">When auctioneer places a request to edit lot</param>
         /// <param name="cancellationToken"></param>
         /// <returns>Return ProductResponse if lot is valid</returns>
         [HttpPost]
         [Route("updateproduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> UpdateLot([FromBody] ProductRequest request, CancellationToken cancellationToken)
+        public async Task<ActionResult> UpdateProduct([FromBody] ProductRequest request, CancellationToken cancellationToken)
         {
-            (object editedLotResponse,ProductDetail lotDetail) = await _productService.UpdateWithRetryAsync(request, cancellationToken);
+            (object editedLotResponse, ProductDetail lotDetail) = await _productService.UpdateWithRetryAsync(request, cancellationToken);
 
-         
+
 
             return Ok(editedLotResponse);
         }
