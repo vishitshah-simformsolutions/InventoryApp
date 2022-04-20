@@ -53,10 +53,10 @@ namespace Product.Api.UnitTests
         [Theory]
         [MemberData(nameof(CreateLotTestData))]
         public void Given_valid_product_is_passed_and_product_already_exists_When_CreateAsync_is_called_Then_product_should_not_be_created_and_product_exists_validation_should_be_in_validation_results
-           (ProductDetail lotDetail)
+           (ProductDetail productDetail)
         {
             //Arrange
-            var lotRequest = CommonUtilities.CreateRequestModel(lotDetail);
+            var lotRequest = CommonUtilities.CreateRequestModel(productDetail);
             const int lotAlreadyExistsCode = 164;
             JsonSerializerOptions options = new JsonSerializerOptions()
             {
@@ -68,8 +68,8 @@ namespace Product.Api.UnitTests
             var validationResult = new List<ValidationResult> { Response.PrepareValidationResult(lotAlreadyExistsCode) };
             var dictionarySuggestion = new Dictionary<string, object>
             {
-                {"ProductId",lotDetail.ProductId},
-                {"ItemId",lotDetail.ItemId},
+                {"ProductId",productDetail.ProductId},
+                {"ItemId",productDetail.ItemId},
             };
             validationResult[0].Data = dictionarySuggestion;
             mockLotDataAccess.Setup(x => x.CreateAsync(It.IsAny<ProductModel>(), It.IsAny<CancellationToken>())).ThrowsAsync(new RuleEngineException(new RuleValidationMessage { IsValid = false, ValidationResults = validationResult }, new Exception("Rule engine exception")));

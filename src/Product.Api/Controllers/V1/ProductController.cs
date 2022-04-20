@@ -37,27 +37,27 @@ namespace Product.Api.Controllers.V1
         [HttpGet]
         [Route("product")]
         [ProducesResponseType(typeof(EditedProductResponse), StatusCodes.Status200OK)]
-        public async Task<ActionResult> Get(long auctionId, long lotId)
+        public async Task<ActionResult> Get(long productId, long itemId)
         {
-            var lotResponse = await _productService.GetAsync(auctionId, lotId);
+            var lotResponse = await _productService.GetAsync(productId, itemId);
             return Ok(lotResponse);
         }
 
         [HttpGet]
         [Route("productbyid")]
         [ProducesResponseType(typeof(EditedProductResponse), StatusCodes.Status200OK)]
-        public async Task<ActionResult> Get(string documentId, long auctionId, long lotId)
+        public async Task<ActionResult> Get(string documentId, long productId, long itemId)
         {
-            var lotResponse = await _productService.GetByIdAsync(documentId, auctionId, lotId);
+            var lotResponse = await _productService.GetByIdAsync(documentId, productId, itemId);
             return Ok(lotResponse);
         }
 
         [HttpDelete]
         [Route("product")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult> Delete(long auctionId, long lotId, CancellationToken cancellationToken)
+        public async Task<ActionResult> Delete(long productId, long itemId, CancellationToken cancellationToken)
         {
-            await _productService.DeleteWithRetryAsync(auctionId, lotId, cancellationToken);
+            await _productService.DeleteWithRetryAsync(productId, itemId, cancellationToken);
 
             return Ok();
         }
@@ -101,7 +101,7 @@ namespace Product.Api.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> UpdateProduct([FromBody] ProductRequest request, CancellationToken cancellationToken)
         {
-            (object editedLotResponse, ProductDetail lotDetail) = await _productService.UpdateWithRetryAsync(request, cancellationToken);
+            (object editedLotResponse, ProductDetail productDetail) = await _productService.UpdateWithRetryAsync(request, cancellationToken);
 
 
 

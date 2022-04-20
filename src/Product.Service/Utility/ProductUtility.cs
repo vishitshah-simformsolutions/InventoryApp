@@ -14,7 +14,7 @@ namespace Product.Utility
                 StringComparison.OrdinalIgnoreCase) == 0);
         }
        
-        public static ProductModel AddDefaultState(dynamic lotDetail, ProductModel lotModel, string correlationId)
+        public static ProductModel AddDefaultState(dynamic productDetail, ProductModel lotModel, string correlationId)
         {
             return new ProductModel
             {

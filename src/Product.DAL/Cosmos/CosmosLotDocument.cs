@@ -4,6 +4,6 @@
     {
         public string id { get; set; }
         public string PartitionKey { get; set; } = "QA";
-        public byte[] EncodedLotModel { get; set; }
+        public byte[] EncodedProductModel { get; set; }
     }
 }

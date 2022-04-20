@@ -14,14 +14,14 @@ namespace Product.ValidationEngine.Model
     {
         private readonly IEnumerable<IRule> _rules;
         private readonly IEnumerable<ITransform> _transformationRules;
-        public IDictionary<string, JsonElement> LotDetailRequestDictionary = new Dictionary<string, JsonElement>();
+        public IDictionary<string, JsonElement> productDetailRequestDictionary = new Dictionary<string, JsonElement>();
         private const int UnknownErrorCode = 999;
 
         #region Properties
 
         public Config Config { get; }
         public ProductDetail ProductDetail { get; }
-        public bool ValidateAuctionDetail { get; }
+        public bool validateProductDetail { get; }
 
         private RuleValidationMessage _ruleValidationMessage;
         private List<ValidationResult> _validationLogs;
@@ -37,47 +37,47 @@ namespace Product.ValidationEngine.Model
         /// <summary>
         /// Accepts json string for Lot Detail class, validates it and assigns it to the ProductDetail property of this static class
         /// </summary>
-        /// <param name="lotDetailJson">Json request for ProductDetail</param>
-        /// <param name="validateAuctionDetail">Boolean flag for auction detail call</param>
+        /// <param name="productDetailJson">Json request for ProductDetail</param>
+        /// <param name="validateProductDetail">Boolean flag for auction detail call</param>
         /// <param name="requestPipe"></param>
         /// <param name="rules"></param>
         /// <param name="transformationRules"></param>
         /// <param name="platformCode"></param>
-        public ProductContext(string lotDetailJson, IRequestPipe requestPipe,
-            IEnumerable<IRule> rules, IEnumerable<ITransform> transformationRules, bool validateAuctionDetail = false, string platformCode = "0")
+        public ProductContext(string productDetailJson, IRequestPipe requestPipe,
+            IEnumerable<IRule> rules, IEnumerable<ITransform> transformationRules, bool validateProductDetail = false, string platformCode = "0")
         {
             _rules = rules;
             _transformationRules = transformationRules;
 
-            if (string.IsNullOrEmpty(lotDetailJson))
+            if (string.IsNullOrEmpty(productDetailJson))
             {
-                throw new ArgumentNullException(nameof(lotDetailJson));
+                throw new ArgumentNullException(nameof(productDetailJson));
             }
 
-            ValidateAllMandatoryData(lotDetailJson, validateAuctionDetail);
+            ValidateAllMandatoryData(productDetailJson, validateProductDetail);
             Config = new Config(platformCode);
 
-            ProductDetail = new ProductDetailRequest(LotDetailRequestDictionary, validateAuctionDetail);
-            ValidateAuctionDetail = validateAuctionDetail;
+            ProductDetail = new ProductDetailRequest(productDetailRequestDictionary, validateProductDetail);
+            validateProductDetail = validateProductDetail;
         }
         #endregion
 
         /// <summary>
         /// Validate request for missing data
         /// </summary>
-        /// <param name="lotDetailJson">Json request from api</param>
-        /// <param name="validateAuctionDetail">Boolean flag for auction detail call</param>
+        /// <param name="productDetailJson">Json request from api</param>
+        /// <param name="validateProductDetail">Boolean flag for auction detail call</param>
         /// <returns>RuleValidationMessage</returns>
-        private void ValidateAllMandatoryData(string lotDetailJson, bool validateAuctionDetail = false)
+        private void ValidateAllMandatoryData(string productDetailJson, bool validateProductDetail = false)
         {
             var ruleValidationMessage = new RuleValidationMessage { IsValid = true };
 
-            LotDetailRequestDictionary =
+            productDetailRequestDictionary =
                 JsonSerializer
-                    .Deserialize<IDictionary<string, JsonElement>>(lotDetailJson)
+                    .Deserialize<IDictionary<string, JsonElement>>(productDetailJson)
                     .ToDictionary(k => k.Key.ToLower(), k => k.Value);
 
-            if (LotDetailRequestDictionary == null)
+            if (productDetailRequestDictionary == null)
             {
                 ruleValidationMessage.IsValid = false;
                 ruleValidationMessage.ValidationResults.AddRange(Response.ValidationResults.Where(x => x.Code == UnknownErrorCode));

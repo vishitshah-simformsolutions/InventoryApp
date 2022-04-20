@@ -96,7 +96,7 @@
             lotResponseMsg.html("");
             showLoader();
             $.ajax({
-                url: '@Url.Action("VerifyLot")',
+                url: '@Url.Action("VerifyProduct")',
                 type: "POST",
                 data: getSerializeForm(),
                 dataType: 'json',
@@ -119,7 +119,7 @@
             showLoader();
 
             $.ajax({
-                url: '@Url.Action("CreateLot")',
+                url: '@Url.Action("CreateProduct")',
                 type: "POST",
                 data: getSerializeForm(),
                 dataType: 'json',
@@ -142,7 +142,7 @@
             showLoader();
 
             $.ajax({
-                url: '@Url.Action("UpdateLot")',
+                url: '@Url.Action("UpdateProduct")',
                 type: "PUT",
                 data: getSerializeForm(),
                 dataType: 'json',
@@ -206,7 +206,7 @@
             const a = document.createElement("a");
             const file = new Blob([jsonString], { type: "text/plain" });
             a.href = URL.createObjectURL(file);
-            a.download = "lotdetails.json";
+            a.download = "productDetails.json";
             a.click();
         });
 
@@ -223,8 +223,8 @@
             showLoader();
 
             $.ajax({
-                url: '@Url.Action("DeleteLot")',
-                url: '@Url.Action("DeleteLot")',
+                url: '@Url.Action("DeleteProduct")',
+                url: '@Url.Action("DeleteProduct")',
                 type: "DELETE",
                 data: { itemId: ItemId, productId: ProductId },
                 dataType: 'json',
@@ -323,7 +323,7 @@
                 }
                 lotResponseMsg.removeClass("text-danger");
                 lotResponseMsg.addClass("text-success");
-                bidLotDetails(lotResponse.lotDetail);
+                bidproductDetails(lotResponse.productDetail);
             }
             else {
                 lotResponseMsg.show();
@@ -359,28 +359,28 @@
         return row;
     }
 
-    function bidLotDetails(lotDetails) {
-        if (lotDetails != null) {
-            for (var prop in lotDetails) {
+    function bidproductDetails(productDetails) {
+        if (productDetails != null) {
+            for (var prop in productDetails) {
                 if (prop === 'increment') {
                     $('#p_scents tr:gt(0)').remove();
-                    for (var range in lotDetails[prop]) {
+                    for (var range in productDetails[prop]) {
                         if ($('#increment_' + range + '_low').length < 1) {
                             var $tr = $('<tr>').append(createAddRangeRow(range));
                             scntDiv.append($tr);
                         }
-                        setFormControlValue('#increment_' + range + '_low', lotDetails[prop][range].low);
-                        setFormControlValue('#increment_' + range + '_high', lotDetails[prop][range].high);
-                        setFormControlValue('#increment_' + range + '_incrementValue', lotDetails[prop][range].incrementValue);
+                        setFormControlValue('#increment_' + range + '_low', productDetails[prop][range].low);
+                        setFormControlValue('#increment_' + range + '_high', productDetails[prop][range].high);
+                        setFormControlValue('#increment_' + range + '_incrementValue', productDetails[prop][range].incrementValue);
                     }
                 }
                 else {
                     debugger;
                     if (prop.toUpperCase() == 'ISPIECEMEAL') {
-                        setFormControlValue('#EgressIsPiecemeal', lotDetails[prop]);
+                        setFormControlValue('#EgressIsPiecemeal', productDetails[prop]);
                     }
                     else {
-                        setFormControlValue('#' + toTitleCase(prop), lotDetails[prop]);
+                        setFormControlValue('#' + toTitleCase(prop), productDetails[prop]);
                     }
                 }
             }

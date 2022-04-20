@@ -10,14 +10,14 @@ namespace Product.Service
     {
         Task<EditedProductResponse> InsertWithRetryAsync(string request, CancellationToken cancellationToken);
 
-        Task<EditedProductResponse> GetAsync(long AuctionId, long LotId);
+        Task<EditedProductResponse> GetAsync(long productId, long itemId);
 
-        Task<EditedProductResponse> GetByIdAsync(string documentId, long AuctionId, long LotId);
+        Task<EditedProductResponse> GetByIdAsync(string documentId, long productId, long itemId);
 
-        Task DeleteWithRetryAsync(long AuctionId, long LotId, CancellationToken cancellationToken);
+        Task DeleteWithRetryAsync(long productId, long itemId, CancellationToken cancellationToken);
 
 
-        Task DeleteByPartitionKeyWithRetryAsync(long AuctionId, long LotId, CancellationToken cancellationToken);
+        Task DeleteByPartitionKeyWithRetryAsync(long productId, long itemId, CancellationToken cancellationToken);
 
         Task<(object,ProductDetail)> UpdateWithRetryAsync(ProductRequest request, CancellationToken cancellationToken);
 

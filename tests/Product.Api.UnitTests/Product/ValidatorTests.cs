@@ -43,7 +43,7 @@ namespace Product.Api.UnitTests.Product
         {
             var caughtException = Assert.Throws<ArgumentNullException>(() => new ProductContext(null, _requestPipe, _rules, _transformRules));
 
-            Assert.Equal("Value cannot be null. (Parameter 'lotDetailJson')", caughtException.Message);
+            Assert.Equal("Value cannot be null. (Parameter 'productDetailJson')", caughtException.Message);
         }
 
         [Theory]

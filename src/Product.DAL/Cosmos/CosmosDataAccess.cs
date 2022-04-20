@@ -68,16 +68,16 @@ namespace Product.DAL.Cosmos
         /// <param name="auctionId">Auction id</param>
         /// <param name="lotId">Lot id</param>
         /// <returns>Retrieved lot model</returns>
-        public async Task<ProductModel> GetAsync(long auctionId, long lotId)
+        public async Task<ProductModel> GetAsync(long productId, long itemId)
         {
             try
             {
-                var lotModel = new ProductModel();
-                var cosmosItemResponse = await _biddingContainer.ReadItemAsync<CosmosLotDocument>(lotId.ToString(), new PartitionKey(string.Concat(auctionId, "-", lotId)), cancellationToken: CancellationToken.None);
-                lotModel = JsonSerializer.Deserialize<ProductModel>(await _compressHelper.Decompress(cosmosItemResponse.Resource.EncodedLotModel), JsonSerializerOption.CaseInsensitive);
-                lotModel.ETag = cosmosItemResponse.ETag;
+                var productModel = new ProductModel();
+                var cosmosItemResponse = await _biddingContainer.ReadItemAsync<CosmosLotDocument>(productId.ToString(), new PartitionKey(string.Concat(productId, "-", itemId)), cancellationToken: CancellationToken.None);
+                productModel = JsonSerializer.Deserialize<ProductModel>(await _compressHelper.Decompress(cosmosItemResponse.Resource.EncodedProductModel), JsonSerializerOption.CaseInsensitive);
+                productModel.ETag = cosmosItemResponse.ETag;
 
-                return lotModel;
+                return productModel;
             }
             catch (CosmosException ex)
             {
@@ -86,8 +86,8 @@ namespace Product.DAL.Cosmos
                     var validationResult = new List<ValidationResult> { Response.PrepareValidationResult(105) };
                     Dictionary<string, object> dictionarySuggestion = new Dictionary<string, object>
                     {
-                        {"auctionId",auctionId},
-                        {"lotId",lotId},
+                        {"auctionId",productId},
+                        {"lotId",itemId},
                     };
                     validationResult[0].Data = dictionarySuggestion;
                     throw new RuleEngineException(new RuleValidationMessage { IsValid = false, ValidationResults = validationResult }, ex);
@@ -104,16 +104,16 @@ namespace Product.DAL.Cosmos
         /// <param name="auctionId">Auction id</param>
         /// <param name="lotId">Lot id</param>
         /// <returns>Retrieved lot model</returns>
-        public async Task<ProductModel> GetByIdAsync(string documentId, long auctionId, long lotId)
+        public async Task<ProductModel> GetByIdAsync(string documentId, long productId, long itemId)
         {
             try
             {
-                var lotModel = new ProductModel();
-                var cosmosItemResponse = await _biddingContainer.ReadItemAsync<CosmosLotDocument>(documentId, new PartitionKey(string.Concat(auctionId, "-", lotId)), cancellationToken: CancellationToken.None);
-                lotModel = JsonSerializer.Deserialize<ProductModel>(await _compressHelper.Decompress(cosmosItemResponse.Resource.EncodedLotModel), JsonSerializerOption.CaseInsensitive);
-                lotModel.ETag = cosmosItemResponse.ETag;
+                var productModel = new ProductModel();
+                var cosmosItemResponse = await _biddingContainer.ReadItemAsync<CosmosLotDocument>(documentId, new PartitionKey(string.Concat(productId, "-", itemId)), cancellationToken: CancellationToken.None);
+                productModel = JsonSerializer.Deserialize<ProductModel>(await _compressHelper.Decompress(cosmosItemResponse.Resource.EncodedProductModel), JsonSerializerOption.CaseInsensitive);
+                productModel.ETag = cosmosItemResponse.ETag;
 
-                return lotModel;
+                return productModel;
             }
             catch (CosmosException ex)
             {
@@ -122,8 +122,8 @@ namespace Product.DAL.Cosmos
                     var validationResult = new List<ValidationResult> { Response.PrepareValidationResult(105) };
                     Dictionary<string, object> dictionarySuggestion = new Dictionary<string, object>
                     {
-                        {"auctionId",auctionId},
-                        {"lotId",lotId},
+                        {"auctionId",productId},
+                        {"lotId",itemId},
                     };
                     validationResult[0].Data = dictionarySuggestion;
                     throw new RuleEngineException(new RuleValidationMessage { IsValid = false, ValidationResults = validationResult }, ex);
@@ -136,15 +136,15 @@ namespace Product.DAL.Cosmos
         /// <summary>
         /// Creates a new document in cosmos DB based on provided lot model
         /// </summary>
-        /// <param name="lotModel">Lot Model</param>
+        /// <param name="productModel">Lot Model</param>
         /// <param name="cancellationToken">CancellationToken</param>
-        public async Task CreateAsync(ProductModel lotModel, CancellationToken cancellationToken)
+        public async Task CreateAsync(ProductModel productModel, CancellationToken cancellationToken)
         {
             var document = new CosmosLotDocument
             {
-                id = lotModel.ProductDetail.ItemId.ToString(),
-                PartitionKey = string.Concat(lotModel.ProductDetail.ProductId, "-", lotModel.ProductDetail.ItemId),
-                EncodedLotModel = await _compressHelper.Compress(JsonSerializer.Serialize(lotModel, JsonSerializerOption.CamelCasePolicyWithEnumAndDateTimeConverter))
+                id = productModel.ProductDetail.ItemId.ToString(),
+                PartitionKey = string.Concat(productModel.ProductDetail.ProductId, "-", productModel.ProductDetail.ItemId),
+                EncodedProductModel  = await _compressHelper.Compress(JsonSerializer.Serialize(productModel, JsonSerializerOption.CamelCasePolicyWithEnumAndDateTimeConverter))
             };
 
             ItemRequestOptions requestOptions = new ItemRequestOptions { EnableContentResponseOnWrite = false };
@@ -159,8 +159,8 @@ namespace Product.DAL.Cosmos
                     var validationResult = new List<ValidationResult> { Response.PrepareValidationResult(164) };
                     Dictionary<string, object> dictionarySuggestion = new Dictionary<string, object>
                     {
-                        {"auctionId",lotModel.ProductDetail.ProductId},
-                        {"lotId",lotModel.ProductDetail.ItemId},
+                        {"auctionId",productModel.ProductDetail.ProductId},
+                        {"lotId",productModel.ProductDetail.ItemId},
                     };
                     validationResult[0].Data = dictionarySuggestion;
                     throw new RuleEngineException(new RuleValidationMessage { IsValid = false, ValidationResults = validationResult }, ex);
@@ -176,11 +176,11 @@ namespace Product.DAL.Cosmos
         /// <param name="auctionId">Auction id</param>
         /// <param name="lotId">Lot id</param>
         /// <param name="cancellationToken">CancellationToken</param>
-        public async Task DeleteAsync(long auctionId, long lotId, CancellationToken cancellationToken)
+        public async Task DeleteAsync(long productId, long itemId, CancellationToken cancellationToken)
         {
             try
             {
-                await _biddingContainer.DeleteItemAsync<CosmosLotDocument>(lotId.ToString(), new PartitionKey(string.Concat(auctionId, "-", lotId)), cancellationToken: cancellationToken);
+                await _biddingContainer.DeleteItemAsync<CosmosLotDocument>(productId.ToString(), new PartitionKey(string.Concat(productId, "-", itemId)), cancellationToken: cancellationToken);
             }
             catch (CosmosException ex)
             {
@@ -189,8 +189,8 @@ namespace Product.DAL.Cosmos
                     var validationResult = new List<ValidationResult> { Response.PrepareValidationResult(105) };
                     Dictionary<string, object> dictionarySuggestion = new Dictionary<string, object>
                     {
-                        {"auctionId",auctionId},
-                        {"lotId",lotId},
+                        {"productId",productId},
+                        {"itemId",itemId},
                     };
                     validationResult[0].Data = dictionarySuggestion;
                     throw new RuleEngineException(new RuleValidationMessage { IsValid = false, ValidationResults = validationResult }, ex);
@@ -208,11 +208,11 @@ namespace Product.DAL.Cosmos
         /// <param name="lotId">Lot id</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <param name="ignoreNotFoundException">Ignoring the exception for HttpStatusCode.NotFound</param>
-        public async Task DeleteAsync(string id, long auctionId, long lotId, CancellationToken cancellationToken, bool ignoreNotFoundException = false)
+        public async Task DeleteAsync(string id, long productId, long itemId, CancellationToken cancellationToken, bool ignoreNotFoundException = false)
         {
             try
             {
-                await _biddingContainer.DeleteItemAsync<CosmosLotDocument>(id, new PartitionKey(string.Concat(auctionId, "-", lotId)), cancellationToken: cancellationToken);
+                await _biddingContainer.DeleteItemAsync<CosmosLotDocument>(id, new PartitionKey(string.Concat(productId, "-", itemId)), cancellationToken: cancellationToken);
             }
             catch (CosmosException ex)
             {
@@ -221,8 +221,8 @@ namespace Product.DAL.Cosmos
                     var validationResult = new List<ValidationResult> { Response.PrepareValidationResult(105) };
                     Dictionary<string, object> dictionarySuggestion = new Dictionary<string, object>
                     {
-                        {"auctionId",auctionId},
-                        {"lotId",lotId},
+                        {"productId",productId},
+                        {"itemId",itemId},
                     };
                     validationResult[0].Data = dictionarySuggestion;
                     throw new RuleEngineException(new RuleValidationMessage { IsValid = false, ValidationResults = validationResult }, ex);
@@ -287,23 +287,23 @@ namespace Product.DAL.Cosmos
         /// <summary>
         /// Update and Insert lot document
         /// </summary>
-        /// <param name="lotModel"></param>
+        /// <param name="productModel"></param>
         /// <param name="cancellationToken"></param>
         /// <param name="isRetraction"></param>
         /// <param name="documentId"></param>
         /// <returns></returns>
-        public async Task<string> UpsertAsync(ProductModel lotModel, CancellationToken cancellationToken, bool isRetraction = false, string documentId = "")
+        public async Task<string> UpsertAsync(ProductModel productModel, CancellationToken cancellationToken, bool isRetraction = false, string documentId = "")
         {
-            string id = isRetraction ? documentId : lotModel.ProductDetail.ItemId.ToString();
+            string id = isRetraction ? documentId : productModel.ProductDetail.ItemId.ToString();
 
             var document = new CosmosLotDocument
             {
                 id = id,
-                PartitionKey = $"{lotModel.ProductDetail.ProductId}-{lotModel.ProductDetail.ItemId}",
-                EncodedLotModel = await _compressHelper.Compress(JsonSerializer.Serialize(lotModel, JsonSerializerOption.CamelCasePolicyWithEnumAndDateTimeConverter))
+                PartitionKey = $"{productModel.ProductDetail.ProductId}-{productModel.ProductDetail.ItemId}",
+                EncodedProductModel = await _compressHelper.Compress(JsonSerializer.Serialize(productModel, JsonSerializerOption.CamelCasePolicyWithEnumAndDateTimeConverter))
             };
 
-            ItemRequestOptions requestOptions = new ItemRequestOptions { IfMatchEtag = lotModel.ETag, EnableContentResponseOnWrite = false };
+            ItemRequestOptions requestOptions = new ItemRequestOptions { IfMatchEtag = productModel.ETag, EnableContentResponseOnWrite = false };
             string updatedETag = string.Empty;
             var cosmosResponse = await _biddingContainer.UpsertItemAsync(document, new PartitionKey(document.PartitionKey), requestOptions, cancellationToken);
             updatedETag = cosmosResponse.ETag;

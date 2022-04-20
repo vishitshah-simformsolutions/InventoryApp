@@ -33,35 +33,35 @@ namespace Playground.Controllers
         }
 
         [HttpPost]
-        public ActionResult VerifyLot(ProductDetail lotDetails)
+        public ActionResult VerifyProduct(ProductDetail productDetails)
         {
-            lotDetails.Increment = new List<Increment>();
+            productDetails.Increment = new List<Increment>();
             var increment = new Increment
             {
                 Low = 0,
                 High = null,
                 IncrementValue = 10
             };
-            lotDetails.Increment.Add(increment);
+            productDetails.Increment.Add(increment);
             var request = new RestRequest(Method.POST);
             request.AddHeader("Content-Type", "application/json");
-            request.AddParameter("application/json", JsonSerializer.Serialize(lotDetails), ParameterType.RequestBody);
+            request.AddParameter("application/json", JsonSerializer.Serialize(productDetails), ParameterType.RequestBody);
 
             IRestResponse response = _restClientApiCall.Execute(request, _configuration["API"] + _configuration["VERIFY_PRODUCT_ENDPOINT"]);
             return Ok(response.Content);
         }
 
         [HttpPost]
-        public ActionResult CreateLot(ProductDetail lotDetails)
+        public ActionResult CreateProduct(ProductDetail productDetails)
         {
-            lotDetails.Increment = new List<Increment>();
+            productDetails.Increment = new List<Increment>();
             var increment = new Increment
             {
                 Low = 0,
                 High = null,
                 IncrementValue = 10
             };
-            lotDetails.Increment.Add(increment);
+            productDetails.Increment.Add(increment);
             var request = new RestRequest(Method.POST);
             StringBuilder correlation = new StringBuilder();
 
@@ -72,7 +72,7 @@ namespace Playground.Controllers
             .ToString();
 
             request.AddHeader("x-correlation-id", correlationId);
-            request.AddParameter("application/json", JsonSerializer.Serialize(CreateProductObj(lotDetails)),
+            request.AddParameter("application/json", JsonSerializer.Serialize(CreateProductObj(productDetails)),
                 ParameterType.RequestBody);
 
             IRestResponse response = _restClientApiCall.Execute(request, _configuration["API"] + _configuration["PRODUCT_DETAILS_ENDPOINT"]);
@@ -82,16 +82,16 @@ namespace Playground.Controllers
         }
 
         [HttpPut]
-        public ActionResult UpdateLot(ProductDetail lotDetails)
+        public ActionResult UpdateProduct(ProductDetail productDetails)
         {
-            lotDetails.Increment = new List<Increment>();
+            productDetails.Increment = new List<Increment>();
             var increment = new Increment
             {
                 Low = 0,
                 High = null,
                 IncrementValue = 10
             };
-            lotDetails.Increment.Add(increment);
+            productDetails.Increment.Add(increment);
             var request = new RestRequest(Method.POST);
             StringBuilder correlation = new StringBuilder();
 
@@ -102,7 +102,7 @@ namespace Playground.Controllers
                 .ToString();
 
             request.AddHeader("x-correlation-id", correlationId);
-            request.AddParameter("application/json", JsonSerializer.Serialize(CreateProductObj(lotDetails)),
+            request.AddParameter("application/json", JsonSerializer.Serialize(CreateProductObj(productDetails)),
                 ParameterType.RequestBody);
 
             IRestResponse response = _restClientApiCall.Execute(request, _configuration["API"] + _configuration["LOT_UPDATE_DETAILS_ENDPOINT"]);
@@ -111,7 +111,7 @@ namespace Playground.Controllers
         }
 
         [HttpDelete]
-        public ActionResult DeleteLot(long itemId, long productId)
+        public ActionResult DeleteProduct(long itemId, long productId)
         {
             string url = _configuration["API"] + _configuration["DELETE_PRODUCT_ENDPOINT"] + $"?itemId={itemId}&productId={productId}";
             var request = new RestRequest(Method.DELETE);
@@ -136,15 +136,15 @@ namespace Playground.Controllers
             return Ok(response.Content);
         }
 
-        private ProductResponseModel CreateProductObj(ProductDetail lotDetails)
+        private ProductResponseModel CreateProductObj(ProductDetail productDetails)
         {
             return new ProductResponseModel()
             {
                 Domain = "SBS",
                 SubDomain = "Product",
-                LotId = lotDetails.ItemId,
-                ProductId = lotDetails.ProductId,
-                ProductDetail = lotDetails,
+                LotId = productDetails.ItemId,
+                ProductId = productDetails.ProductId,
+                ProductDetail = productDetails,
             };
         }
     }
