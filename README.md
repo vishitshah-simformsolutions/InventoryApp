@@ -29,7 +29,7 @@ Inventory App is a web based solution where brands can add products and manage t
 
 ### Database 
 Database Server: Cosmos DB explorer
-Database Name: dev-sbs
+Database Name: inventory
 Database Container: corebidding
 
 ### Project Architecture
