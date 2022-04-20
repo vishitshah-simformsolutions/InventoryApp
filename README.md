@@ -1,20 +1,50 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Inventory Module!
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+Inventory App is a web based solution where brands can add products and manage them.It has functionality to Create, edit, delete product. Product has details like ProductId, ItemId, Selling Price, Manufacturing Price and quantity
+## Getting started
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+### Prerequisites  
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+ - Visual Studio 2019 or later  
+ - .Net core (3.1)
+ - Azure cosmos DB explorer
+
+
+### Dependancies
+#### Nuget Packages
+    - AutoMapper.Extensions.Microsoft.DependencyInjection
+    - Microsoft.Azure.Cosmos
+    - Microsoft.Extensions.DependencyInjection.Abstractions
+    - Microsoft.Extensions.Http.Polly
+    - Microsoft.Extensions.Options
+    - Microsoft.NET.Test.Sdk
+    - Moq
+    - RestSharp
+    - Swashbuckle.AspNetCore
+    - System.Net.Http.Json
+    - xunit
+    - xunit.runner.visualstudio
+
+
+### Database 
+Database Server: Cosmos DB explorer
+Database Name: dev-sbs
+Database Container: corebidding
+
+### Project Architecture
+Specify your project architecture here. Suppose you are following Repository pattern then mention your all the projects along with short description here.
+
+ - Product.Api (End points to manage product)
+ - Product.Common (Contains references of other assemblies that are common among multiple projects) 
+ - Product.DAL (Contains database operations)
+ - Product.DataModel (Contains request, response and shared data model classes)
+ - Product.Service (Contains business logic)
+ - Product.Utility (Contains helper methods for business operations)
+ - Product.ValidationEngine (Contains logic to validation product request model)
+ - Playground (Web app to interact) 
+ - Product.Api.UnitTests (Contains all the test methods)
+
+## Running the tests
+In this project we have used XUnit. You can run all the tests from the Test Explorer. If Test Explorer is not visible, choose  **Test**  on the Visual Studio menu, choose  **Windows**, and then choose  **Test Explorer**. All the unit tests will be listed so choose the test you want to run. You can also run alto tests by selecteing "Run All" option.
+
