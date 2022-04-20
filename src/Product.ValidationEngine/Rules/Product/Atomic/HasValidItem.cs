@@ -13,7 +13,7 @@ namespace Product.ValidationEngine.Rules.Product.Atomic
         {
             RuleValidationMessage ruleValidationMessage = new RuleValidationMessage() { IsValid = true };
 
-            if (!(productContext?.LotDetail?.ItemId <= 0))
+            if (!(productContext?.ProductDetail?.ItemId <= 0))
             {
                 return ruleValidationMessage;
             }

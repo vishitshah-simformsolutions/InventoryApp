@@ -13,7 +13,7 @@ namespace Product.ValidationEngine.Rules.Product.Atomic
         {
             RuleValidationMessage ruleValidationMessage = new RuleValidationMessage() { IsValid = true };
 
-            if (productContext.LotDetail.Quantity < 0)
+            if (productContext.ProductDetail.Quantity < 0)
             {
                 ruleValidationMessage.IsValid = false;
                 ruleValidationMessage.ValidationResults.AddRange(

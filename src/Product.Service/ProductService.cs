@@ -93,7 +93,7 @@ namespace Product.Service
             ruleValidationMessage = await productContext.EvaluateAsync();
 
             // Set default values to avoid inputs from user's end for internal properties
-            lotModel.ProductDetail = productContext.LotDetail;
+            lotModel.ProductDetail = productContext.ProductDetail;
             lotModel = ProductUtility.AddDefaultState(_lotDetail.Value, lotModel, _requestPipe.CorrelationId);
 
             // Create lot
@@ -194,7 +194,7 @@ namespace Product.Service
             // Evaluate LotModel against all Platform rules. If any rule fails exception handled by evaluate method itself
             RuleValidationMessage ruleValidationMessage = await productContext.EvaluateAsync();
 
-            return (ruleValidationMessage, productContext.LotDetail);
+            return (ruleValidationMessage, productContext.ProductDetail);
         }
 
         #endregion

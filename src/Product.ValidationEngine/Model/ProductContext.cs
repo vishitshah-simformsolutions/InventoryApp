@@ -20,7 +20,7 @@ namespace Product.ValidationEngine.Model
         #region Properties
 
         public Config Config { get; }
-        public ProductDetail LotDetail { get; }
+        public ProductDetail ProductDetail { get; }
         public bool ValidateAuctionDetail { get; }
 
         private RuleValidationMessage _ruleValidationMessage;
@@ -57,7 +57,7 @@ namespace Product.ValidationEngine.Model
             ValidateAllMandatoryData(lotDetailJson, validateAuctionDetail);
             Config = new Config(platformCode);
 
-            LotDetail = new ProductDetailRequest(LotDetailRequestDictionary, validateAuctionDetail);
+            ProductDetail = new ProductDetailRequest(LotDetailRequestDictionary, validateAuctionDetail);
             ValidateAuctionDetail = validateAuctionDetail;
         }
         #endregion
@@ -162,13 +162,7 @@ namespace Product.ValidationEngine.Model
 
             _ruleValidationMessage.ValidationResults.AddRange(result.ValidationResults);
 
-            //for dynamic logging (Warnings)
-            if (Config.DynamicAuditLogRules.Any(x => x.Key == ruleName && x.Value))
-            {
-                _validationLogs.AddRange(result.ValidationResults);
-            }
-
-            if (ruleType == nameof(RuleType.HardRules) && !result.IsValid)
+           if (ruleType == nameof(RuleType.HardRules) && !result.IsValid)
             {
                 _ruleValidationMessage.IsValid = result.IsValid;
             }

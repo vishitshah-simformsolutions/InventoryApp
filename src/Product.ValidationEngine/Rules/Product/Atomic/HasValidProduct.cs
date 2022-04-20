@@ -9,11 +9,11 @@ namespace Product.ValidationEngine.Rules.Product.Atomic
     {
         private const int HasValidAuctionErrorCode = 103;
 
-        public RuleValidationMessage Execute(ProductContext productContext)
+        public RuleValidationMessage Execute(ProductContext auctioneerContext)
         {
             RuleValidationMessage ruleValidationMessage = new RuleValidationMessage() { IsValid = true };
             
-            if (!(productContext?.LotDetail?.ProductId <= 0))
+            if (!(auctioneerContext?.ProductDetail?.ProductId <= 0))
             {
                 return ruleValidationMessage;
             }

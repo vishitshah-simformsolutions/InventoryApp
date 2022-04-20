@@ -35,7 +35,7 @@ namespace Product.Api.UnitTests.Auctioneer
             var productContext = new ProductContext(request, _requestPipe, _rules, _transformRules);
 
             //Assert
-            Assert.NotNull(productContext.LotDetail);
+            Assert.NotNull(productContext.ProductDetail);
         }
 
         [Fact]
